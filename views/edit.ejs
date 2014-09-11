@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+    <input type="text" />
+    <textarea style="width:100%;height:500px"></textarea>
+    <button id="btn">save</button>
+    <script>
+    $(function(){
+        $( '#btn' ).click(function(){
+            var title = $( 'input' ).val();
+            var code = $( 'textarea' ).val();
+            var id = window.location.pathname.substring( 1 );
+            $.post( '/code', { id : id, title : title, code : code } ).success(function(){
+                window.location.href = '/' + id + '/result';
+            });
+        });
+    });
+    </script>
+</body>
+</html>
