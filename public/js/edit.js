@@ -21,7 +21,7 @@ var sendCode = function( editor ){
     var codeText = editor.getValue();
     var id = window.location.pathname.substring( 1 );
     $.post( '/createCode', { id : id, codeText : codeText } ).success(function(){
-        window.location.href = '/' + id + '/result';
+        toastr.success( '保存成功' );
     });
 };
 
