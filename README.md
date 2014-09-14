@@ -1,4 +1,8 @@
 #demo
-**the place is a write demo**
+** 一个写demo的web工具 **
 
-*Waiting for the development of*
+地址 http://demos.berwin.me/
+
+##快捷键
+
+ctrl+s 保存代码
