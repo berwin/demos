@@ -1,0 +1,28 @@
+'use strict';
+
+var editor = ace.edit("code");
+editor.setTheme("ace/theme/monokai");
+editor.getSession().setMode("ace/mode/html");
+var StatusBar = ace.require("ace/ext/statusbar").StatusBar;
+var statusBar = new StatusBar(editor, document.getElementById("statusBar"));
+editor.setOption("enableEmmet", true);
+
+$( window ).keydown(function(event){
+    if( event.keyCode === 83 && event.ctrlKey ){
+        sendCode( editor );
+    }
+});
+
+$( '#save' ).click(function(){
+    sendCode( editor );
+});
+
+var sendCode = function( editor ){
+    var codeText = editor.getValue();
+    var id = window.location.pathname.substring( 1 );
+    $.post( '/createCode', { id : id, codeText : codeText } ).success(function(){
+        window.location.href = '/' + id + '/result';
+    });
+};
+
+if( window.console ) window.console.log( '本产品由 Berwin 独立开发\n开发者邮箱：berwin1995@qq.com\n开源地址：https://github.com/berwin/demo' );

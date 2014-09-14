@@ -1,0 +1,7 @@
+@charset "utf-8";
+body{padding:0;margin:0;}
+#code{margin: 0;position: absolute;top: 0;bottom: 20px;left: 0;right: 0;}
+#statusBar,.ace_status-indicator{font:12px/20px '';color:#ccc;height:20px;position:absolute;right: 0;}
+#statusBar {left: 0;bottom: 0;background-color:rgb(23, 23, 23);}
+#statusBar div{padding:0 10px;float:left;}
+#statusBar div a{color:#ccc;text-decoration:none;}
