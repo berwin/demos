@@ -10,6 +10,11 @@ editor.setOption("enableEmmet", true);
 $( window ).keydown(function(event){
     if( event.keyCode === 83 && event.ctrlKey ){
         sendCode( editor );
+        return false;
+    }
+    if( event.keyCode === 83 && event.metaKey ){
+        sendCode( editor );
+        return false;
     }
 });
 
