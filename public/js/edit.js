@@ -7,6 +7,12 @@ var StatusBar = ace.require("ace/ext/statusbar").StatusBar;
 var statusBar = new StatusBar(editor, document.getElementById("statusBar"));
 editor.setOption("enableEmmet", true);
 
+var id = window.location.pathname.substring( 1 );
+
+$.get( '/' + id + '/result' ).success(function( codeText ){
+    editor.setValue( codeText );
+});
+
 $( window ).keydown(function(event){
     if( event.keyCode === 83 && event.ctrlKey ){
         sendCode( editor );
