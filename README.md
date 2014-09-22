@@ -1,7 +1,7 @@
 #Demos
 **demos 一个开源的web开发调试工具，风格简介，用来写demo，小案例等。**
  
-地址： http://demos.so
+地址： http://demos.so   http://demos.berwin.me
 
 #Demos能做些什么？
 
