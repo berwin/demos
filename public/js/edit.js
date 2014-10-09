@@ -9,9 +9,14 @@ editor.setOption("enableEmmet", true);
 
 var id = window.location.pathname.substring( 1 );
 
-$.get( '/' + id + '/result' ).success(function( codeText ){
-    editor.setValue( codeText );
-});
+var cache = window.localStorage[ id ];
+if( cache  ){
+    editor.setValue( cache );
+}else{
+    $.get( '/' + id + '/result' ).success(function( codeText ){
+        editor.setValue( codeText );
+    });
+}
 
 $( window ).keydown(function(event){
     if( event.keyCode === 83 && event.ctrlKey ){
@@ -22,6 +27,7 @@ $( window ).keydown(function(event){
         sendCode( editor );
         return false;
     }
+    window.localStorage[ id ] = editor.getValue();
 });
 
 $( '#save' ).click(function(){
@@ -31,8 +37,12 @@ $( '#save' ).click(function(){
 var sendCode = function( editor ){
     var codeText = editor.getValue();
     var id = window.location.pathname.substring( 1 );
-    $.post( '/createCode', { id : id, codeText : codeText } ).success(function(){
-        toastr.success( '保存成功' );
+    $.post( '/createCode', { id : id, codeText : codeText } ).success(function( data ){
+        if( data.status === 0 ){
+            toastr.success( '保存成功' );
+        }else{
+            toastr.error( '保存失败' );
+        }
     });
 };
 
