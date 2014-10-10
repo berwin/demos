@@ -8,6 +8,7 @@ a{text-decoration:none;}
 #statusBar div{padding:0 10px;float:left;}
 #statusBar div a{color:#ccc;}
 #statusBar #save{cursor:pointer;}
-
+#statusBar div a,#statusBar #save{transition:.2s;}
+#statusBar #save:hover,#statusBar div a:hover{color:#fff;}
 /* index */
 .cd_btn{display:inline-block;background:#3c3c3c;color:#fff;width:220px;height:60px;font:24px/60px '';text-align:center;border-radius:6px;position:absolute;left:50%;top:50%;margin:-30px 0 0 -110px;}
