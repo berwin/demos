@@ -37,12 +37,18 @@ $( '#save' ).click(function(){
 var sendCode = function( editor ){
     var codeText = editor.getValue();
     var id = window.location.pathname.substring( 1 );
+    var demos = window.localStorage[ 'demos' ] || '[]';
+    demos = JSON.parse( demos );
+
     $.post( '/createCode', { id : id, codeText : codeText } ).success(function( data ){
-        if( data.status === 0 ){
+        if( data.status === 1 ){
+            demos.push( id );
+            demos = JSON.stringify( demos );
+            window.localStorage[ 'demos' ] = demos;
             toastr.success( '保存成功' );
-        }else{
-            toastr.error( '保存失败' );
         }
+        if( data.status === 0 ) toastr.success( '保存成功' );
+        if( data.status === -1 ) toastr.error( '保存失败' );
     });
 };
 
