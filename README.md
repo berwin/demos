@@ -25,8 +25,6 @@ command + , 显示个性化设置
 
 command + / 添加注释
 
-control + option + 方向 || option + 鼠标拖拽 多点编辑
-
 command + d 删除整行
 
 command + f 查找
@@ -36,6 +34,8 @@ command + l 跳转到第几行
 command + option + 方向键上，下复制整行
 
 command + ' 删除当前标签内的内容（包括标签）
+
+control + option + 方向 || option + 鼠标拖拽 多点编辑
 
 control + g 选择词
 
