@@ -22,18 +22,31 @@ ctrl+s 保存代码
 
 ### Mac
 command + , 显示个性化设置
+
 command + / 添加注释
+
 control + option + 方向 || option + 鼠标拖拽 多点编辑
+
 command + d 删除整行
+
 command + f 查找
+
 command + l 跳转到第几行
+
 command + option + 方向键上，下复制整行
+
 command + ' 删除当前标签内的内容（包括标签）
+
 control + g 选择词
+
 control + k 从光标处删除至行尾
+
 control + option + g 选择所有相同的词进行多重编辑
+
 control + d 选择标签内的内容（重复按连续选择父级标签内的内容）
+
 control + 方向键左，右 整行代码左移，右移
+
 option + 方向键上，下 代码换行
 
 
