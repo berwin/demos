@@ -18,7 +18,9 @@ demos是由Berwin独立开发，完全开源在 https://github.com/berwin/demos
 
 #### 通用
 ctrl + s 保存代码
+
 ctrl + p 显示／隐藏实时预览
+
 支持emmet语法
 
 ### Mac
