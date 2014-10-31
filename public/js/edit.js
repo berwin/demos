@@ -1,7 +1,7 @@
 'use strict';
 
 var editor = ace.edit("code");
-editor.setTheme("ace/theme/chrome");
+editor.setTheme("ace/theme/monokai");
 editor.setShowPrintMargin(false);
 editor.getSession().setMode("ace/mode/html");
 var StatusBar = ace.require("ace/ext/statusbar").StatusBar;
@@ -62,10 +62,12 @@ function initView () {
     drag( $( '#scroll' ).get(0), $( '#code' ).get(0), $( '#preview' ).get(0), $( '#editor-drag-cover' ).get(0) );
 
     var w = document.body.clientWidth;
-    var sw = $( '#scroll' ).width() / 2;
     $( '#code' ).width( w / 2 );
-    $( '#preview' ).css( 'left', $( '#code' ).width() + 1 );
-    $( '#scroll' ).css( 'left', w / 2 - sw + 'px' );
+
+    var cw = $( '#code' ).width();
+    var sw = $( '#scroll' ).width();
+    $( '#preview' ).css( 'left', cw + sw + 'px' );
+    $( '#scroll' ).css( 'left', cw + 'px' );
 
     resetIframe();
 }
@@ -78,11 +80,9 @@ function drag( oScroll, oCode, oPreView, editorDragCover ){
         document.onmousemove = function( ev ){
             var oEvent = ev || event;
             var l = oEvent.clientX - disX;
-            var sw = $( '#scroll' ).width() / 2;
-
             oCode.style.width = l + 'px';
-            oScroll.style.left = l - sw + 'px';
-            oPreView.style.left = l + 1 + 'px';
+            oScroll.style.left = l + 'px';
+            oPreView.style.left = l + oScroll.offsetWidth + 'px';
             editor.resize();
         };
         document.onmouseup = function(){
