@@ -19,27 +19,17 @@ if( cache  ){
     });
 }
 
-//Preview
-initView();
 $( '#statusBar' ).get(0).onselectstart = function(){ return false };
 
 $( window ).keydown(function(event){
     //Save
-    if( event.keyCode === 83 && event.ctrlKey ){
-        sendCode( editor );
-        return false;
-    }
-    if( event.keyCode === 83 && event.metaKey ){
+    if( event.keyCode === 83 && ( event.ctrlKey === true || event.metaKey === true ) ){
         sendCode( editor );
         return false;
     }
 
     //Toggle preview
-    if( event.keyCode === 80 && event.ctrlKey ){
-        togglePreview();
-        return false;
-    }
-    if( event.keyCode === 80 && event.metaKey ){
+    if( event.keyCode === 80 && ( event.ctrlKey === true || event.metaKey === true ) ){
         togglePreview();
         return false;
     }
@@ -53,10 +43,17 @@ $( '#save' ).click(function(){
 //Toggle preview
 $( '#btn_preview' ).click( togglePreview );
 
+var interval;
+editor.on( 'change', function() {
+    if( window.frames[ 'result' ] ){
+        clearTimeout( interval );
+        interval = setTimeout( resetIframe, 300 );
+    }
+});
+
 function initView () {
-    var location = window.location.href;
     var html = '<div id="preview">'
-        +'<iframe name="result" src="'+ location +'/result"></iframe>'
+        +'<iframe name="result"></iframe>'
         +'<div id="editor-drag-cover"></div>'
         +'</div>'
         +'<div id="scroll"><span></span></div>';
@@ -66,8 +63,13 @@ function initView () {
 
     var w = document.body.clientWidth;
     $( '#code' ).width( w / 2 );
-    $( '#preview' ).css( 'left', $( '#code' ).width() + $( '#scroll' ).width() );
-    $( '#scroll' ).css( 'left', w / 2 + 'px' );
+
+    var cw = $( '#code' ).width();
+    var sw = $( '#scroll' ).width();
+    $( '#preview' ).css( 'left', cw + sw + 'px' );
+    $( '#scroll' ).css( 'left', cw + 'px' );
+
+    resetIframe();
 }
 
 function drag( oScroll, oCode, oPreView, editorDragCover ){
@@ -105,18 +107,28 @@ function togglePreview(){
     editor.resize();
 }
 
+function resetIframe(){
+    var preview = document.getElementById( 'preview' );
+    preview.removeChild( preview.getElementsByTagName( 'iframe' )[0] );
+    var iframe = document.createElement( 'iframe' );
+    iframe.setAttribute( 'name', 'result' );
+    preview.appendChild( iframe );
+
+    var codeText = editor.getValue();
+    var content = window.frames[ 'result' ].document;
+    content.open();
+    content.write( codeText );
+    content.close();
+}
+
 var sendCode = function( editor ){
+    window.frames[ 'result' ] && resetIframe();
     window.localStorage.removeItem( id );
     var codeText = editor.getValue();
     $.post( '/createCode', { id : id, codeText : codeText } ).success(function( result ){
-        if( result.status === 0 ){
-            toastr.success( '保存成功' );
-            window.frames[ 'result' ].location.reload();
-        }
+        if( result.status === 0 ) toastr.success( '保存成功' );
         if( result.status === -1 ) toastr.error( '保存失败' );
-        if( result.status === 1 ){
-            window.location.pathname = result.data._id;
-        }
+        if( result.status === 1 ) window.location.pathname = result.data._id;
     });
 };
 
