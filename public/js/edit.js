@@ -1,7 +1,7 @@
 'use strict';
 
 var editor = ace.edit("code");
-editor.setTheme("ace/theme/monokai");
+editor.setTheme("ace/theme/dawn");
 editor.setShowPrintMargin(false);
 editor.getSession().setMode("ace/mode/html");
 var StatusBar = ace.require("ace/ext/statusbar").StatusBar;
@@ -64,10 +64,11 @@ function initView () {
     var w = document.body.clientWidth;
     $( '#code' ).width( w / 2 );
 
-    var cw = $( '#code' ).width();
+    var l = $( '#code' ).width();
     var sw = $( '#scroll' ).width();
-    $( '#preview' ).css( 'left', cw + sw + 'px' );
-    $( '#scroll' ).css( 'left', cw + 'px' );
+    var scw = $( '#scroll span' ).width();
+    $( '#preview' ).css( 'left', l + scw + 'px' );
+    $( '#scroll' ).css( 'left', l - sw / 2 + 'px' );
 
     resetIframe();
 }
@@ -76,13 +77,14 @@ function drag( oScroll, oCode, oPreView, editorDragCover ){
     oScroll.onmousedown = function( ev ){
         var oEvent = ev || event;
         var disX = oEvent.clientX - oScroll.offsetLeft;
+        var sw = oScroll.offsetWidth;
         editorDragCover.style.display = 'block';
         document.onmousemove = function( ev ){
             var oEvent = ev || event;
             var l = oEvent.clientX - disX;
             oCode.style.width = l + 'px';
-            oScroll.style.left = l + 'px';
-            oPreView.style.left = l + oScroll.offsetWidth + 'px';
+            oPreView.style.left = l + 1 + 'px';
+            oScroll.style.left = l - sw / 2 + 'px';
             editor.resize();
         };
         document.onmouseup = function(){
