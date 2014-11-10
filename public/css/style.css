@@ -17,8 +17,9 @@ a{text-decoration:none;}
 #statusBar div a,#save,#btn_preview{transition:.2s;}
 #save:hover,#btn_preview:hover,#statusBar div a:hover{color:#fff;}
 
-#scroll{background-image:linear-gradient(to right, #505050, #383838);width:10px;cursor:col-resize;}
-#scroll span{background:url(/images/scroll.png) no-repeat center center;width:10px;display:inline-block;position:absolute;top:0;bottom:0;}
+#scroll{width:10px;cursor:col-resize;text-align:center;z-index:2;}
+#scroll span{width:0;border-left:1px solid hsl(60, 0%, 90%);display:inline-block;background:hsl(60, 0%, 90%);position:absolute;top:0;bottom:0;}
+#scroll:hover span{border-left:1px dashed rgb(58,139,250);}
 
 iframe{border:none;height:100%;width:100%;}
 #editor-drag-cover{position:absolute;z-index:1;width:100%;height:100%;top:0;display:none;}
