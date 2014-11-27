@@ -20,10 +20,18 @@ define(function (require, exports, module) {
             editor.setValue( codeText );
         });
     }
-
     pageEdit.initView();
 
     $( '#statusBar' ).get(0).onselectstart = function(){ return false };
+
+
+    var interval;
+    editor.on( 'change', function() {
+        if( window.frames[ 'result' ] ){
+            clearTimeout( interval );
+            interval = setTimeout( pageEdit.resetIframe, 300 );
+        }
+    });
 
     $( window ).keydown(function(event){
         //Save
@@ -37,23 +45,24 @@ define(function (require, exports, module) {
             pageEdit.togglePreview();
             return false;
         }
+
+        //Show Menu
+        if( event.keyCode === 77 && ( event.ctrlKey === true || event.metaKey === true ) ){
+            pageEdit.toggleMenu();
+            return false;
+        }
+
+        if( event.keyCode === 9 ){
+            console.log( 'aa' );
+        }
         window.localStorage[ id ] = editor.getValue();
     });
 
     //Save
-    $( '#save' ).click(function(){
-        pageEdit.sendCode();
-    });
-    //Toggle preview
+    $( '#save' ).click( pageEdit.sendCode );
     $( '#btn_preview' ).click( pageEdit.togglePreview );
-
-    var interval;
-    editor.on( 'change', function() {
-        if( window.frames[ 'result' ] ){
-            clearTimeout( interval );
-            interval = setTimeout( pageEdit.resetIframe, 300 );
-        }
-    });
+    $( '#btn_menu' ).click( pageEdit.toggleMenu );
+    
 });
 
 if( window.console ) window.console.log( '本产品由 Berwin 独立开发\n开发者邮箱：berwin1995@qq.com\n开源地址：https://github.com/berwin/demo' );

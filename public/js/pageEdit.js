@@ -85,6 +85,25 @@ define(function (require, exports, module) {
         });
     };
 
+    exports.toggleMenu = function(){
+        var menu = $( '#menu' ).get( 0 );
+        var menuShow = function(){
+            var tag = '<div id="menu" class="fadeinleft"></div>';
+            $( 'body' ).append( tag );
+        };
+        var menuHide = function(){
+            $('#menu').get(0).className = 'fadeoutleft';
+            setTimeout(function(){
+                $( '#menu' ).remove();
+            },700);
+        };
+        if( menu ){
+            menuHide();
+        }else{
+            menuShow();
+        }
+    };
+
     exports.resetIframe = resetIframe;
     exports.editor = editor;
     exports.id = id;
