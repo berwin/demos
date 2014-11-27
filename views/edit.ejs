@@ -20,13 +20,19 @@
         <div id="browse"><a href="/<%- data._id %>/result" target="_blank">浏览</a></div>
         <div id="btn_preview">实时预览</div>
     </div>
+<script src="/lib/sea.js"></script>
 <script src="/lib/jquery-1.8.3.min.js"></script>
 <script src="/lib/ace/ace.js"></script>
 <script src="/lib/ace/ext-statusbar.js"></script>
 <script src="/lib/ace/emmet.js"></script>
 <script src="/lib/ace/ext-emmet.js"></script>
 <script src="/lib/toastr/toastr.min.js"></script>
-<script src="/js/edit.js"></script>
+
+<script>
+    seajs.use( '/js/edit.js' );
+</script>
+
+
 <script type="text/javascript">
 var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F45357aa314b5e74f49f3641677d1f409' type='text/javascript'%3E%3C/script%3E"));
