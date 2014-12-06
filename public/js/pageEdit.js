@@ -85,11 +85,27 @@ define(function (require, exports, module) {
         });
     };
 
+    function getDemos (callback) {
+        $.post('/getDemosByUserID').success(function (list) { callback(list) });
+    }
+
+    function appendChildDemos (list) {
+        var ul = document.createElement('ul');
+        var pathname = window.location.pathname.substring(1);
+        for( var i = 0; i < list.length; i++ ){
+            var classActive = ( list[i]._id === pathname ? 'on' : '' );
+            var str = '<li><a href="/'+ list[i]._id +'" class="'+ classActive +'">'+ list[i]._id +'</a></li>';
+            $( ul ).append( str );
+        }
+        $( '#menu' ).append( ul );
+    }
+
     exports.toggleMenu = function(){
         var menu = $( '#menu' ).get( 0 );
         var menuShow = function(){
             var tag = '<div id="menu" class="fadeinleft"></div>';
             $( 'body' ).append( tag );
+            getDemos( appendChildDemos );
         };
         var menuHide = function(){
             $('#menu').get(0).className = 'fadeoutleft';
@@ -103,6 +119,7 @@ define(function (require, exports, module) {
             menuShow();
         }
     };
+
 
     exports.resetIframe = resetIframe;
     exports.editor = editor;
