@@ -115,8 +115,9 @@ iframe{border:none;height:100%;width:100%;}
     -moz-animation-fill-mode: both;
     animation-fill-mode: both;
 }
-
-#menu ul li{border-bottom:1px solid #f1f1f1;line-height:46px;text-indent:20px;}
+#menu h1{margin:0;padding:20px;font:24px Helvetica, arial, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";}
+#menu h1,#menu ul li{text-indent:20px;border-bottom:1px solid #f1f1f1;}
+#menu ul li{line-height:46px;}
 #menu ul li:hover{cursor:pointer;}
 #menu ul li a{display:block;color:#666;}
 #menu ul li a.on,#menu ul li:hover a{color:#4183c4;}

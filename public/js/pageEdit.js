@@ -103,7 +103,7 @@ define(function (require, exports, module) {
     exports.toggleMenu = function(){
         var menu = $( '#menu' ).get( 0 );
         var menuShow = function(){
-            var tag = '<div id="menu" class="fadeinleft"></div>';
+            var tag = '<div id="menu" class="fadeinleft"><h1>历史记录</h1></div>';
             $( 'body' ).append( tag );
             getDemos( appendChildDemos );
         };
