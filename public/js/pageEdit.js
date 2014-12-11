@@ -3,6 +3,8 @@
 define(function (require, exports, module) {
     var editor = ace.edit("code");
     var id = window.location.pathname.substring( 1 );
+    var tool = require( './tool' );
+    var cashe = tool.cashe();
 
     function initView () {
         var html = '<div id="preview">'
@@ -79,14 +81,23 @@ define(function (require, exports, module) {
         window.localStorage.removeItem( id );
         var codeText = editor.getValue();
         $.post( '/createCode', { id : id, codeText : codeText } ).success(function( result ){
-            if( result.status === 0 ) toastr.success( '保存成功' );
             if( result.status === -1 ) toastr.error( '保存失败' );
-            if( result.status === 1 ) window.location.pathname = result.data._id;
+            if (result.status === 0 || result.status === 1) toastr.success( '保存成功' );
+            if (result.status === 0 || result.status === 2) cashe.rm('history');
+            if (result.status === 2) window.location.pathname = result.data._id;
         });
     };
 
     function getDemos (callback) {
-        $.post('/getDemosByUserID').success(function (list) { callback(list) });
+        var history = cashe.get('history');
+        if( history ){
+            callback(history);
+        }else{
+            $.post('/getDemosByUserID').success(function (list) {
+                cashe.set('history', list);
+                callback(list);
+            });
+        }
     }
 
     function appendChildDemos (list) {

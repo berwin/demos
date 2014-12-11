@@ -2,17 +2,17 @@
 
 var util = {
     cashe : function () {
-        var cashe = {};
+        var data = {};
 
         return {
             set : function (name, value) {
-                cashe[ name ] = value;
+                data[ name ] = value;
             },
             get : function (name) {
-                return cashe[ name ];
+                return data[ name ];
             },
             rm : function (name) {
-                delete cashe[ name ];
+                delete data[ name ];
             }
         };
     }
