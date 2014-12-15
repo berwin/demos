@@ -51,10 +51,6 @@ define(function (require, exports, module) {
             pageEdit.toggleMenu();
             return false;
         }
-
-        if( event.keyCode === 9 ){
-            console.log( 'aa' );
-        }
         window.localStorage[ id ] = editor.getValue();
     });
 
@@ -62,6 +58,9 @@ define(function (require, exports, module) {
     $( '#save' ).click( pageEdit.sendCode );
     $( '#btn_preview' ).click( pageEdit.togglePreview );
     $( '#btn_menu' ).click( pageEdit.toggleMenu );
+    $( 'body' ).on( 'click', '#btn_login', pageEdit.login);
+    $( 'body' ).on( 'blur', '#mail', pageEdit.rmRedBorder);
+    $( 'body' ).on( 'blur', '#password', pageEdit.rmRedBorder);
     
 });
 

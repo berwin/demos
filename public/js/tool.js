@@ -15,6 +15,11 @@ var util = {
                 delete data[ name ];
             }
         };
+    },
+    regexp : function () {
+        return {
+            mail : /^([a-z0-9]+[\-|\_|\.]*[\w]*@[a-z0-9\-]+(\.[a-z]{2,3}){1,2})$/i
+        }
     }
 };
 

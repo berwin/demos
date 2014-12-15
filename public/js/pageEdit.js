@@ -27,7 +27,7 @@ define(function (require, exports, module) {
 
         resetIframe();
     }
-    function resetIframe(){
+    function resetIframe () {
         var preview = document.getElementById( 'preview' );
         preview.removeChild( preview.getElementsByTagName( 'iframe' )[0] );
         var iframe = document.createElement( 'iframe' );
@@ -40,7 +40,7 @@ define(function (require, exports, module) {
         content.write( codeText );
         content.close();
     }
-    function drag( oScroll, oCode, oPreView, editorDragCover ){
+    function drag (oScroll, oCode, oPreView, editorDragCover) {
         oScroll.onmousedown = function( ev ){
             var oEvent = ev || event;
             var disX = oEvent.clientX - oScroll.offsetLeft;
@@ -63,7 +63,7 @@ define(function (require, exports, module) {
         };
     }
 
-    exports.togglePreview = function(){
+    exports.togglePreview = function () {
         var preview = $( '#preview' ).get( 0 );
         var scroll = $( '#scroll' ).get( 0 );
         if( preview && scroll ){
@@ -76,15 +76,16 @@ define(function (require, exports, module) {
         editor.resize();
     }
 
-    exports.sendCode = function(){
+    exports.sendCode = function () {
         window.frames[ 'result' ] && resetIframe();
         window.localStorage.removeItem( id );
         var codeText = editor.getValue();
         $.post( '/createCode', { id : id, codeText : codeText } ).success(function( result ){
-            if( result.status === -1 ) toastr.error( '保存失败' );
             if (result.status === 0 || result.status === 1) toastr.success( '保存成功' );
             if (result.status === 0 || result.status === 2) cashe.rm('history');
             if (result.status === 2) window.location.pathname = result.data._id;
+        }).error(function(e){
+            toastr.error( '保存失败' );
         });
     };
 
@@ -93,7 +94,7 @@ define(function (require, exports, module) {
         if( history ){
             callback(history);
         }else{
-            $.post('/getDemosByUserID').success(function (list) {
+            $.post('/getDemosByUserID', {id : id} ).success(function (list) {
                 cashe.set('history', list);
                 callback(list);
             });
@@ -108,13 +109,24 @@ define(function (require, exports, module) {
             var str = '<li><a href="/'+ list[i]._id +'" class="'+ classActive +'">'+ list[i]._id +'</a></li>';
             $( ul ).append( str );
         }
-        $( '#menu' ).append( ul );
+        $( '#history' ).append( ul );
     }
 
-    exports.toggleMenu = function(){
+    exports.toggleMenu = function () {
         var menu = $( '#menu' ).get( 0 );
         var menuShow = function(){
-            var tag = '<div id="menu" class="fadeinleft"><h1>历史记录</h1></div>';
+            var tag = 
+                '<div id="menu" class="fadeinleft">'
+                    +'<div id="account">'
+                        +'<p class="p20_0"><img src="http://e.hiphotos.baidu.com/image/pic/item/96dda144ad3459824e0ea0980ef431adcbef8430.jpg" alt="" /></p>'
+                        +'<p><input type="mail" id="mail" placeholder="Email" /></p>'
+                        +'<p><input type="password" id="password" placeholder="password" /></p>'
+                        +'<p><button id="btn_login">登陆</button></p>'
+                    +'</div>'
+                    +'<div id="history" class="mt20">'
+                        +'<h1>历史记录</h1>'
+                    +'</div>'
+                +'</div>';
             $( 'body' ).append( tag );
             getDemos( appendChildDemos );
         };
@@ -129,6 +141,21 @@ define(function (require, exports, module) {
         }else{
             menuShow();
         }
+    };
+
+    exports.rmRedBorder = function () {
+        $(this).removeClass( 'redBorder' );
+    };
+
+    exports.login = function () {
+        var regexpMail = tool.regexp().mail;
+        var mail = $( '#mail' ).val();
+        var password = $( '#password' ).val();
+        if( regexpMail.test( mail ) && password ){
+            $.post('/login', {id : id, mail : mail, password: password})
+        }
+        if( !regexpMail.test( mail ) ) $( '#mail' ).addClass('redBorder');
+        if( !password ) $( '#password' ).addClass('redBorder');
     };
 
 

@@ -3,7 +3,12 @@ body,ul{padding:0;margin:0;}
 ul{list-style:none;}
 a{text-decoration:none;}
 p{margin:0;}
+input,button{outline:none;}
+.mt20{margin-top:20px;}
 .w50{width:50%;}
+.p20_0{padding:20px 0;}
+.tc{text-align:center;}
+.redBorder{border-color:red!important;}
 .clearfix:before,.clearfix:after{content:''; display:table;}.clearfix:after{clear:both;}.clearfix{*zoom:1;}
 /* index */
 .cd_btn{display:inline-block;background:#3c3c3c;color:#fff;width:220px;height:60px;font:24px/60px '';text-align:center;border-radius:6px;position:absolute;left:50%;top:50%;margin:-30px 0 0 -110px;}
@@ -122,7 +127,16 @@ iframe{border:none;height:100%;width:100%;}
 #menu ul li a{display:block;color:#666;}
 #menu ul li a.on,#menu ul li:hover a{color:#4183c4;}
 
+#history{border-top:1px solid #f1f1f1;}
+
+#account p{text-align:center;}
+#account img{border-radius:50%;width:100px;height:100px;}
+#account input{border-radius:5px;border:1px solid #eee;width:190px;height:28px;margin:5px 0;padding:0 5px;transition:.2s linear;}
+#account input:focus{border-color:#3498DB;}
 
 
 
+#account button{border:none;border-radius:5px;background:#3498db;width:200px;height:24px;margin:5px 10px;color:#fff;transition:.2s;cursor:pointer;}
+#account button:hover{background:#5dade2;}
+#account button:active{background:#2980B9;}
 
