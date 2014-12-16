@@ -122,6 +122,7 @@ define(function (require, exports, module) {
                         +'<p><input type="mail" id="mail" placeholder="Email" /></p>'
                         +'<p><input type="password" id="password" placeholder="password" /></p>'
                         +'<p><button id="btn_login">登陆</button></p>'
+                        +'<p class="clearfix acc_link_box"><a href="/'+ id +'/register" class="fl">注册</a><a href="#" class="fr">忘记密码？</a></p>'
                     +'</div>'
                     +'<div id="history" class="mt20">'
                         +'<h1>历史记录</h1>'
