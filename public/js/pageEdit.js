@@ -132,6 +132,7 @@ define(function (require, exports, module) {
             $( '#menu' ).removeClass( 'none' );
             getDemos( appendChildDemos );
             getUserInfo(function (userInfo) {
+                $( '#avatar' ).attr( 'src', userInfo.avatar );
                 $( '#b' ).remove();
             });
         };
@@ -157,7 +158,8 @@ define(function (require, exports, module) {
         var mail = $( '#mail' ).val();
         var password = $( '#password' ).val();
         if( regexpMail.test( mail ) && password ){
-            $.post('/login', {id : id, mail : mail, password: password}).success(function () {
+            $.post('/login', {id : id, mail : mail, password: password}).success(function (userInfo) {
+                $( '#avatar' ).attr( 'src', userInfo.avatar );
                 $( '#b' ).remove();
                 cashe.rm( 'userInfo' );
                 cashe.rm('history');
