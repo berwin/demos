@@ -27,5 +27,6 @@ define(function (require, exports, module) {
         $( '#register' ).removeClass('fadeOut');
         $( '#register' ).removeClass('animated');
         $( '#loading' ).remove();
+        
     }
 });
