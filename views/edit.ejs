@@ -21,6 +21,21 @@
         <div id="browse"><a href="/<%- data._id %>/result" target="_blank">浏览</a></div>
         <div id="btn_preview" title="ctrl+alt+p">实时预览</div>
     </div>
+    <div id="menu" class="none">
+        <div id="account">
+            <p class="p20_0"><img src="http://e.hiphotos.baidu.com/image/pic/item/96dda144ad3459824e0ea0980ef431adcbef8430.jpg" alt="" /></p>
+            <div id="b">
+                <p><input type="mail" id="mail" placeholder="Email" /></p>
+                <p><input type="password" id="password" placeholder="password" /></p>
+                <p><button id="btn_login">登陆</button></p>
+                <p class="clearfix acc_link_box"><a href="/<%- data._id %>/register" class="fl">注册</a><a href="#" class="fr">找回密码</a></p>
+            </div>
+        </div>
+        <dl class="history" class="mt20">
+            <dt><h1>历史记录</h1></dt>
+            <dd id="history"></dd>
+        </dl>
+    </div>
 <script src="/lib/sea.js"></script>
 <script src="/lib/jquery-1.8.3.min.js"></script>
 <script src="/lib/ace/ace.js"></script>

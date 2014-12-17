@@ -63,6 +63,18 @@ define(function (require, exports, module) {
         };
     }
 
+    function getUserInfo (callback) {
+        var userInfo = cashe.get( 'userInfo' );
+        if( userInfo ){
+            callback( userInfo )
+        }else{
+            $.post('/getUserInfo', {id : id}).success(function (userInfo) {
+                cashe.set( 'userInfo', userInfo );
+                callback(userInfo);
+            });
+        }
+    }
+
     exports.togglePreview = function () {
         var preview = $( '#preview' ).get( 0 );
         var scroll = $( '#scroll' ).get( 0 );
@@ -109,35 +121,27 @@ define(function (require, exports, module) {
             var str = '<li><a href="/'+ list[i]._id +'" class="'+ classActive +'">'+ list[i]._id +'</a></li>';
             $( ul ).append( str );
         }
+        $( '#history' ).html('');
         $( '#history' ).append( ul );
     }
 
     exports.toggleMenu = function () {
         var menu = $( '#menu' ).get( 0 );
         var menuShow = function(){
-            var tag = 
-                '<div id="menu" class="fadeinleft">'
-                    +'<div id="account">'
-                        +'<p class="p20_0"><img src="http://e.hiphotos.baidu.com/image/pic/item/96dda144ad3459824e0ea0980ef431adcbef8430.jpg" alt="" /></p>'
-                        +'<p><input type="mail" id="mail" placeholder="Email" /></p>'
-                        +'<p><input type="password" id="password" placeholder="password" /></p>'
-                        +'<p><button id="btn_login">登陆</button></p>'
-                        +'<p class="clearfix acc_link_box"><a href="/'+ id +'/register" class="fl">注册</a><a href="#" class="fr">忘记密码？</a></p>'
-                    +'</div>'
-                    +'<div id="history" class="mt20">'
-                        +'<h1>历史记录</h1>'
-                    +'</div>'
-                +'</div>';
-            $( 'body' ).append( tag );
+            $( '#menu' ).addClass( 'fadeinleft' );
+            $( '#menu' ).removeClass( 'none' );
             getDemos( appendChildDemos );
+            getUserInfo(function (userInfo) {
+                $( '#b' ).remove();
+            });
         };
         var menuHide = function(){
             $('#menu').get(0).className = 'fadeoutleft';
             setTimeout(function(){
-                $( '#menu' ).remove();
+                $( '#menu' ).get(0).className = 'none';
             },700);
         };
-        if( menu ){
+        if (menu.className.indexOf( 'none' ) === -1) {
             menuHide();
         }else{
             menuShow();
@@ -153,7 +157,15 @@ define(function (require, exports, module) {
         var mail = $( '#mail' ).val();
         var password = $( '#password' ).val();
         if( regexpMail.test( mail ) && password ){
-            $.post('/login', {id : id, mail : mail, password: password})
+            $.post('/login', {id : id, mail : mail, password: password}).success(function () {
+                $( '#b' ).remove();
+                cashe.rm( 'userInfo' );
+                cashe.rm('history');
+                getDemos( appendChildDemos );
+                toastr.success( '登陆成功' );
+            }).error(function (msg) {
+                toastr.error( msg.responseText );
+            });
         }
         if( !regexpMail.test( mail ) ) $( '#mail' ).addClass('redBorder');
         if( !password ) $( '#password' ).addClass('redBorder');

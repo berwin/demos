@@ -4,5 +4,6 @@ module.exports = {
     MONGO_RUL : 'mongodb://127.0.0.1:27017/demos',
     MD5_SUFFIX : 'Encryption',
     MAILNAME : 'email-address',
-    MAILPASS : 'email-password'
+    MAILPASS : 'email-password',
+    HOSTNAME: 'http://www.demos.so'
 };

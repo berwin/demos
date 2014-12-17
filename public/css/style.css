@@ -2,7 +2,7 @@
 body,ul,pre{padding:0;margin:0;}
 ul{list-style:none;}
 a{text-decoration:none;}
-p{margin:0;}
+p,dd{margin:0;}
 input,button{outline:none;}
 .mt20{margin-top:20px;}
 .w50{width:50%;}
@@ -12,6 +12,8 @@ input,button{outline:none;}
 .fl{float:left;}
 .fr{float:right;}
 .clearfix:before,.clearfix:after{content:''; display:table;}.clearfix:after{clear:both;}.clearfix{*zoom:1;}
+.none{display:none;}
+.block{display:block;}
 
 /***** Menu *****/
 @-webkit-keyframes fadeinleft {
@@ -165,7 +167,7 @@ iframe{border:none;height:100%;width:100%;}
 #menu ul li a{display:block;color:#666;}
 #menu ul li a.on,#menu ul li:hover a{color:#4183c4;}
 
-#history{border-top:1px solid #f1f1f1;}
+.history{border-top:1px solid #f1f1f1;}
 
 #account p{text-align:center;}
 #account img{border-radius:50%;width:100px;height:100px;}
@@ -189,6 +191,6 @@ iframe{border:none;height:100%;width:100%;}
 #register input{border:none;border-bottom:1px solid #c0c0c0;padding:0 5px;letter-spacing:1px;}
 #register a{color:#000;}
 
-.register_h1{font:18px/300px proxima-nova, sans-serif;text-align:center;width:100%;position:absolute;top:0;}
+.register_h1{font:18px/200% proxima-nova, sans-serif;text-align:center;width:80%;position:absolute;top:20%;padding:0 10%;}
 .register_h1 a{color:#000;text-decoration:underline;}
 
