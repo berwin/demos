@@ -124,7 +124,7 @@ input,button{outline:none;}
     50%{-webkit-transform:rotate(180deg);opacity:1.0}
     to{-webkit-transform:rotate(360deg);opacity:.2}
 }
-#loading{position:absolute;top:50%;left:50%;margin:-30px 0 0 -30px;}
+#loading{position:absolute;top:50%;left:50%;margin:-30px 0 0 -30px;height:60px;background:#fff;z-index:3;border-radius:50%;}
 #loading .outer{border:5px solid #000;opacity:.9;border-right-color:transparent;border-left-color:transparent;width:50px;height:50px;margin:0 auto;border-radius:50%;-webkit-box-shadow:0 0 35px rgba(0,0,0,0.9);-moz-box-shadow:0 0 35px rgba(0,76,61,0.9);box-shadow:0 0 35px rgba(0,0,0,0.9);-webkit-animation:spin-pulse 1s 0 linear infinite normal;-moz-animation:spin-pulse 1s 0 linear infinite normal;-ms-animation:spin-pulse 1s 0 linear infinite normal;animation:spin-pulse 1s 0 linear infinite normal}
 #loading .inner{border:5px solid #000;opacity:.9;border-left-color:transparent;border-right-color:transparent;border-radius:50%;-webkit-box-shadow:0 0 15px rgba(0,0,0,0.9);-moz-box-shadow:0 0 15px rgba(0,0,0,0.9);box-shadow:0 0 15px rgba(0,0,0,0.9);width:30px;height:30px;position:relative;top:-50px;margin:0 auto;-webkit-animation:spin-right 1s 0 linear infinite normal;-moz-animation:spin-right 1s 0 linear infinite normal;-ms-animation:spin-right 1s 0 linear infinite normal;animation:spin-right 1s 0 linear infinite normal}
 
@@ -167,10 +167,11 @@ iframe{border:none;height:100%;width:100%;}
 #menu ul li a{display:block;color:#666;}
 #menu ul li a.on,#menu ul li:hover a{color:#4183c4;}
 
+#avatar{border-radius:50%;width:100px;height:100px;}
 .history{border-top:1px solid #f1f1f1;}
 
+#account{position:relative;height:145px;}
 #account p{text-align:center;}
-#account img{border-radius:50%;width:100px;height:100px;}
 #account input{border-radius:5px;border:1px solid #eee;width:190px;height:28px;margin:5px 0;padding:0 5px;transition:.2s linear;}
 #account input:focus{border-color:#3498DB;}
 #account p a{font:12px/200% '';color:#ccc;transition:.2s linear;}
@@ -182,14 +183,17 @@ iframe{border:none;height:100%;width:100%;}
 #account button:hover{background:#5dade2;}
 #account button:active{background:#2980B9;}
 
+/* login */
+#login,#retrieve{position:absolute;top:0;width:100%;}
+
 /* register */
-#register *{font:12px/16px Monaco, 'Andale Mono', 'Lucida Console', 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace;}
-#register .doctype{color:rgb(192, 192, 192);}
-#register .label{color:rgb(136, 18, 128);}
-#register .attribute{color:rgb(153, 69, 0);}
-#register .value{color:rgb(26, 26, 166);}
-#register input{border:none;border-bottom:1px solid #c0c0c0;padding:0 5px;letter-spacing:1px;}
-#register a{color:#000;}
+#retrieve *{font:12px/16px Monaco, 'Andale Mono', 'Lucida Console', 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace;}
+#retrieve .doctype{color:rgb(192, 192, 192);}
+#retrieve .label{color:rgb(136, 18, 128);}
+#retrieve .attribute{color:rgb(153, 69, 0);}
+#retrieve .value{color:rgb(26, 26, 166);}
+#retrieve input{border:none;border-bottom:1px solid #c0c0c0;padding:0 5px;letter-spacing:1px;}
+#retrieve a{color:#000;}
 
 .register_h1{font:18px/200% proxima-nova, sans-serif;text-align:center;width:80%;position:absolute;top:20%;padding:0 10%;}
 .register_h1 a{color:#000;text-decoration:underline;}

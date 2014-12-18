@@ -4,7 +4,7 @@ define(function (require, exports, module) {
     var editor = ace.edit("code");
     var id = window.location.pathname.substring( 1 );
     var tool = require( './tool' );
-    var cashe = tool.cashe();
+    var menu = require( './menu' );
 
     function initView () {
         var html = '<div id="preview">'
@@ -63,18 +63,6 @@ define(function (require, exports, module) {
         };
     }
 
-    function getUserInfo (callback) {
-        var userInfo = cashe.get( 'userInfo' );
-        if( userInfo ){
-            callback( userInfo )
-        }else{
-            $.post('/getUserInfo', {id : id}).success(function (userInfo) {
-                cashe.set( 'userInfo', userInfo );
-                callback(userInfo);
-            });
-        }
-    }
-
     exports.togglePreview = function () {
         var preview = $( '#preview' ).get( 0 );
         var scroll = $( '#scroll' ).get( 0 );
@@ -94,85 +82,15 @@ define(function (require, exports, module) {
         var codeText = editor.getValue();
         $.post( '/createCode', { id : id, codeText : codeText } ).success(function( result ){
             if (result.status === 0 || result.status === 1) toastr.success( '保存成功' );
-            if (result.status === 0 || result.status === 2) cashe.rm('history');
+            if (result.status === 0 || result.status === 2){
+                menu.cashe.rm('history');
+                menu.getDemos( menu.appendChildDemos );
+            }
             if (result.status === 2) window.location.pathname = result.data._id;
         }).error(function(e){
             toastr.error( '保存失败' );
         });
     };
-
-    function getDemos (callback) {
-        var history = cashe.get('history');
-        if( history ){
-            callback(history);
-        }else{
-            $.post('/getDemosByUserID', {id : id} ).success(function (list) {
-                cashe.set('history', list);
-                callback(list);
-            });
-        }
-    }
-
-    function appendChildDemos (list) {
-        var ul = document.createElement('ul');
-        var pathname = window.location.pathname.substring(1);
-        for( var i = 0; i < list.length; i++ ){
-            var classActive = ( list[i]._id === pathname ? 'on' : '' );
-            var str = '<li><a href="/'+ list[i]._id +'" class="'+ classActive +'">'+ list[i]._id +'</a></li>';
-            $( ul ).append( str );
-        }
-        $( '#history' ).html('');
-        $( '#history' ).append( ul );
-    }
-
-    exports.toggleMenu = function () {
-        var menu = $( '#menu' ).get( 0 );
-        var menuShow = function(){
-            $( '#menu' ).addClass( 'fadeinleft' );
-            $( '#menu' ).removeClass( 'none' );
-            getDemos( appendChildDemos );
-            getUserInfo(function (userInfo) {
-                $( '#avatar' ).attr( 'src', userInfo.avatar );
-                $( '#b' ).remove();
-            });
-        };
-        var menuHide = function(){
-            $('#menu').get(0).className = 'fadeoutleft';
-            setTimeout(function(){
-                $( '#menu' ).get(0).className = 'none';
-            },700);
-        };
-        if (menu.className.indexOf( 'none' ) === -1) {
-            menuHide();
-        }else{
-            menuShow();
-        }
-    };
-
-    exports.rmRedBorder = function () {
-        $(this).removeClass( 'redBorder' );
-    };
-
-    exports.login = function () {
-        var regexpMail = tool.regexp().mail;
-        var mail = $( '#mail' ).val();
-        var password = $( '#password' ).val();
-        if( regexpMail.test( mail ) && password ){
-            $.post('/login', {id : id, mail : mail, password: password}).success(function (userInfo) {
-                $( '#avatar' ).attr( 'src', userInfo.avatar );
-                $( '#b' ).remove();
-                cashe.rm( 'userInfo' );
-                cashe.rm('history');
-                getDemos( appendChildDemos );
-                toastr.success( '登陆成功' );
-            }).error(function (msg) {
-                toastr.error( msg.responseText );
-            });
-        }
-        if( !regexpMail.test( mail ) ) $( '#mail' ).addClass('redBorder');
-        if( !password ) $( '#password' ).addClass('redBorder');
-    };
-
 
     exports.resetIframe = resetIframe;
     exports.editor = editor;

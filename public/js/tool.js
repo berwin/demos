@@ -20,6 +20,15 @@ var util = {
         return {
             mail : /^([a-z0-9]+[\-|\_|\.]*[\w]*@[a-z0-9\-]+(\.[a-z]{2,3}){1,2})$/i
         }
+    },
+    cookieToObject : function (str) {
+        var obj = {};
+        var arr = str.split( ';' );
+        for( var i = 0; i < arr.length; i++ ){
+            var aCookie = arr[i].split( '=' );
+            obj[ aCookie[0] ] = aCookie[1];
+        }
+        return obj;
     }
 };
 

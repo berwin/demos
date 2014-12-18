@@ -1,7 +1,9 @@
 'use strict';
 
 define(function (require, exports, module) {
+    var tool = require( './tool' );
     var pageEdit = require( './pageEdit' );
+    var menu = require('./menu');
     var id = pageEdit.id;
 
     var editor = pageEdit.editor;
@@ -48,7 +50,7 @@ define(function (require, exports, module) {
 
         //Show Menu
         if( event.keyCode === 77 && ( event.ctrlKey === true || event.metaKey === true ) ){
-            pageEdit.toggleMenu();
+            menu.toggleMenu();
             return false;
         }
         window.localStorage[ id ] = editor.getValue();
@@ -57,11 +59,6 @@ define(function (require, exports, module) {
     //Save
     $( '#save' ).click( pageEdit.sendCode );
     $( '#btn_preview' ).click( pageEdit.togglePreview );
-    $( '#btn_menu' ).click( pageEdit.toggleMenu );
-    $( 'body' ).on( 'click', '#btn_login', pageEdit.login);
-    $( 'body' ).on( 'blur', '#mail', pageEdit.rmRedBorder);
-    $( 'body' ).on( 'blur', '#password', pageEdit.rmRedBorder);
-    
 });
 
 if( window.console ) window.console.log( '本产品由 Berwin 独立开发\n开发者邮箱：berwin1995@qq.com\n开源地址：https://github.com/berwin/demo' );
