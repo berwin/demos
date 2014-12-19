@@ -8,7 +8,6 @@ define(function (require, exports, module) {
 
     function getDemos (callback) {
         var history = cashe.get('history');
-        console.log( history );
         if( history ){
             callback(history);
         }else{
