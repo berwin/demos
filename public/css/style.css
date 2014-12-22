@@ -128,7 +128,7 @@ input,button{outline:none;}
     50%{-webkit-transform:rotate(180deg);opacity:1.0}
     to{-webkit-transform:rotate(360deg);opacity:.2}
 }
-#loading{position:absolute;top:50%;left:50%;margin:-30px 0 0 -30px;height:60px;background:#fff;z-index:3;border-radius:50%;}
+#loading{position:absolute;top:50%;left:50%;margin:-30px 0 0 -30px;height:60px;background:#fff;z-index:5;border-radius:50%;}
 #loading .outer{border:5px solid #000;opacity:.9;border-right-color:transparent;border-left-color:transparent;width:50px;height:50px;margin:0 auto;border-radius:50%;-webkit-box-shadow:0 0 35px rgba(0,0,0,0.9);-moz-box-shadow:0 0 35px rgba(0,76,61,0.9);box-shadow:0 0 35px rgba(0,0,0,0.9);-webkit-animation:spin-pulse 1s 0 linear infinite normal;-moz-animation:spin-pulse 1s 0 linear infinite normal;-ms-animation:spin-pulse 1s 0 linear infinite normal;animation:spin-pulse 1s 0 linear infinite normal}
 #loading .inner{border:5px solid #000;opacity:.9;border-left-color:transparent;border-right-color:transparent;border-radius:50%;-webkit-box-shadow:0 0 15px rgba(0,0,0,0.9);-moz-box-shadow:0 0 15px rgba(0,0,0,0.9);box-shadow:0 0 15px rgba(0,0,0,0.9);width:30px;height:30px;position:relative;top:-50px;margin:0 auto;-webkit-animation:spin-right 1s 0 linear infinite normal;-moz-animation:spin-right 1s 0 linear infinite normal;-ms-animation:spin-right 1s 0 linear infinite normal;animation:spin-right 1s 0 linear infinite normal}
 
@@ -165,20 +165,20 @@ iframe{border:none;height:100%;width:100%;}
     animation-fill-mode: both;
 }
 #menu h1{margin:0;padding:20px;font:24px Helvetica, arial, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";}
-#menu h1,#menu ul li{text-indent:20px;border-bottom:1px solid #f1f1f1;}
+#menu h1,#menu ul li{text-indent:20px;border-bottom:1px solid #eee;}
 #menu ul li{line-height:46px;}
 #menu ul li:hover{cursor:pointer;}
 #menu ul li a{display:block;color:#666;}
 #menu ul li a.on,#menu ul li:hover a{color:#4183c4;}
 
 #avatar{border-radius:50%;width:100px;height:100px;}
-.history{border-top:1px solid #f1f1f1;}
+.history{border-top:1px solid #eee;}
 
 #account{position:relative;height:145px;}
 #account p{text-align:center;}
-#account input{border-radius:5px;border:1px solid #eee;width:190px;height:28px;margin:5px 0;padding:0 5px;transition:.2s linear;}
+#account input{border-radius:5px;border:1px solid #ccc;width:190px;height:28px;margin:5px 0;padding:0 5px;transition:.2s linear;}
 #account input:focus{border-color:#3498DB;}
-#account p a{font:12px/200% '';color:#ccc;transition:.2s linear;}
+#account p a{font:12px/200% '';color:#bbb;transition:.2s linear;}
 #account p a:hover{color:#4183c4;}
 .acc_link_box{width:200px;margin:0 auto;}
 

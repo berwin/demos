@@ -97,7 +97,13 @@ define(function (require, exports, module) {
         addLoading();
 
         if( tool.regexp().mail.test( mail ) ){
-            
+            $.post( '/retrieve', { id : id, mail : mail } ).success(function () {
+                rmLoading();
+                toastr.success( '您的密码已经发送到您的邮箱里，请注意查收' );
+            }).error(function () {
+                rmLoading();
+                toastr.error( '找回密码时，发生了错误请稍后在试' );
+            });
         }else{
             rmLoading();
             $( '#retrieve_mail' ).addClass('redBorder');
