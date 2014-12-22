@@ -49,7 +49,8 @@ define(function (require, exports, module) {
     }
     function getUserInfoInit (userInfo) {
         userInfo.avatar && $( '#avatar' ).attr( 'src', userInfo.avatar );
-        $( '#account' ).remove();
+        $( '#login_before' ).addClass('none');
+        $( '#login_after' ).removeClass('none');
         cashe.rm('history');
         getDemos( appendChildDemos );
     }
@@ -73,8 +74,6 @@ define(function (require, exports, module) {
     function register () {
         var mail = $( '#register_mail' ).val();
         var password = $( '#register_password' ).val();
-
-        $( '#register' ).addClass('fadeOut animated');
         addLoading();
         
         if( tool.regexp().mail.test( mail ) ){
@@ -110,6 +109,25 @@ define(function (require, exports, module) {
         }
     }
 
+    function changePw () {
+        var newPw = $( '#change_pw' ).val();
+        $.post( '/changepw', { id: id, password: newPw } ).success(function () {
+            goHome();
+            $( '#change_pw' ).val('');
+            toastr.success( '密码修改成功' );
+        }).error(function () {
+            toastr.success( '修改失败' );
+        });
+    }
+
+    function signOut () {
+        $.post( '/signout', {id: id} ).success(function(){
+            toastr.success( '您已经退出' );
+            $( '#login_after' ).addClass('none');
+            $( '#login_before' ).removeClass('none');
+        });
+    }
+
     function transform (name) {
         $( '#retrieve' ).get(0).className = 'none';
         $( '#register' ).get(0).className = 'none';
@@ -124,6 +142,18 @@ define(function (require, exports, module) {
     }
     function toRetrieve () {
         transform( 'retrieve' );
+    }
+    function toChangePw () {
+        $( '#login_after_btn' ).get(0).className = 'animated zoomOutDown';
+        setTimeout(function () {
+            $( '#changePw' ).get(0).className = 'animated bounceInDown';
+        },1000);
+    }
+    function goHome () {
+        $( '#changePw' ).get(0).className = 'animated bounceOutUp';
+        setTimeout(function () {
+            $( '#login_after_btn' ).get(0).className = 'animated zoomInUp';
+        },500);
     }
 
     function toClose () {
@@ -172,12 +202,15 @@ define(function (require, exports, module) {
     $( '.register_link' ).click( toRegister );
     $( '.login_link' ).click( toLogin );
     $( '.retrieve_link' ).click( toRetrieve );
+    $( '#change_link' ).click( toChangePw );
+    $( '.backHome' ).click( goHome );
+
 
     $( '#btn_login' ).click( login );
     $( '#btn_register' ).click( register );
     $( '#btn_retrieve' ).click( retrieve );
-
-    
+    $( '#btn_changePw' ).click( changePw );
+    $( '#btn_signOut' ).click( signOut );
 
     exports.toggleMenu = toggleMenu;
     exports.getDemos = getDemos;
