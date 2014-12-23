@@ -160,6 +160,8 @@ define(function (require, exports, module) {
         if ($( '#login' ).get(0)) $( '#login' ).get(0).className = '';
         if ($( '#register' ).get(0)) $( '#register' ).get(0).className = 'none';
         if($( '#retrieve' ).get(0)) $( '#retrieve' ).get(0).className = 'none';
+        $('#login_after_btn').get(0).className = '';
+        $('#changePw').get(0).className = 'none';
     }
 
     function toggleMenu () {
