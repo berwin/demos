@@ -4,7 +4,7 @@ define(function (require, exports, module) {
     var editor = ace.edit("code");
     var id = window.location.pathname.substring( 1 );
     var tool = require( './tool' );
-    var cashe = tool.cashe();
+    var menu = require( './menu' );
 
     function initView () {
         var html = '<div id="preview">'
@@ -27,7 +27,7 @@ define(function (require, exports, module) {
 
         resetIframe();
     }
-    function resetIframe(){
+    function resetIframe () {
         var preview = document.getElementById( 'preview' );
         preview.removeChild( preview.getElementsByTagName( 'iframe' )[0] );
         var iframe = document.createElement( 'iframe' );
@@ -40,7 +40,7 @@ define(function (require, exports, module) {
         content.write( codeText );
         content.close();
     }
-    function drag( oScroll, oCode, oPreView, editorDragCover ){
+    function drag (oScroll, oCode, oPreView, editorDragCover) {
         oScroll.onmousedown = function( ev ){
             var oEvent = ev || event;
             var disX = oEvent.clientX - oScroll.offsetLeft;
@@ -63,7 +63,7 @@ define(function (require, exports, module) {
         };
     }
 
-    exports.togglePreview = function(){
+    exports.togglePreview = function () {
         var preview = $( '#preview' ).get( 0 );
         var scroll = $( '#scroll' ).get( 0 );
         if( preview && scroll ){
@@ -76,61 +76,21 @@ define(function (require, exports, module) {
         editor.resize();
     }
 
-    exports.sendCode = function(){
+    exports.sendCode = function () {
         window.frames[ 'result' ] && resetIframe();
         window.localStorage.removeItem( id );
         var codeText = editor.getValue();
         $.post( '/createCode', { id : id, codeText : codeText } ).success(function( result ){
-            if( result.status === -1 ) toastr.error( '保存失败' );
             if (result.status === 0 || result.status === 1) toastr.success( '保存成功' );
-            if (result.status === 0 || result.status === 2) cashe.rm('history');
+            if (result.status === 0 || result.status === 2){
+                menu.cashe.rm('history');
+                menu.getDemos( menu.appendChildDemos );
+            }
             if (result.status === 2) window.location.pathname = result.data._id;
+        }).error(function(e){
+            toastr.error( '保存失败' );
         });
     };
-
-    function getDemos (callback) {
-        var history = cashe.get('history');
-        if( history ){
-            callback(history);
-        }else{
-            $.post('/getDemosByUserID').success(function (list) {
-                cashe.set('history', list);
-                callback(list);
-            });
-        }
-    }
-
-    function appendChildDemos (list) {
-        var ul = document.createElement('ul');
-        var pathname = window.location.pathname.substring(1);
-        for( var i = 0; i < list.length; i++ ){
-            var classActive = ( list[i]._id === pathname ? 'on' : '' );
-            var str = '<li><a href="/'+ list[i]._id +'" class="'+ classActive +'">'+ list[i]._id +'</a></li>';
-            $( ul ).append( str );
-        }
-        $( '#menu' ).append( ul );
-    }
-
-    exports.toggleMenu = function(){
-        var menu = $( '#menu' ).get( 0 );
-        var menuShow = function(){
-            var tag = '<div id="menu" class="fadeinleft"><h1>历史记录</h1></div>';
-            $( 'body' ).append( tag );
-            getDemos( appendChildDemos );
-        };
-        var menuHide = function(){
-            $('#menu').get(0).className = 'fadeoutleft';
-            setTimeout(function(){
-                $( '#menu' ).remove();
-            },700);
-        };
-        if( menu ){
-            menuHide();
-        }else{
-            menuShow();
-        }
-    };
-
 
     exports.resetIframe = resetIframe;
     exports.editor = editor;
