@@ -1,64 +1,68 @@
 'use strict';
 
 define(function (require, exports, module) {
-    var tool = require( './tool' );
-    var pageEdit = require( './pageEdit' );
     var menu = require('./menu');
-    var id = pageEdit.id;
 
-    var editor = pageEdit.editor;
-    editor.setTheme("ace/theme/dawn");
-    editor.setShowPrintMargin(false);
-    editor.getSession().setMode("ace/mode/html");
-    var StatusBar = ace.require("ace/ext/statusbar").StatusBar;
-    var statusBar = new StatusBar(editor, document.getElementById("statusBar"));
-    editor.setOption("enableEmmet", true);
+    exports.initCode = function (id, editor) {
+        var cache = window.localStorage[ id ];
+        if( cache  ){
+            editor.setValue( cache );
+        }else{
+            $.get( '/' + id + '/result' ).success(function( codeText ){
+                editor.setValue( codeText );
+            });
+        }
+    };
 
-    var cache = window.localStorage[ id ];
-    if( cache  ){
-        editor.setValue( cache );
-    }else{
-        $.get( '/' + id + '/result' ).success(function( codeText ){
-            editor.setValue( codeText );
-        });
+    exports.drag = function (oScroll, oCode, oPreView, editor) {
+        oScroll.onmousedown = function( ev ){
+            var oEvent = ev || event;
+            var disX = oEvent.clientX - oScroll.offsetLeft;
+            var sw = oScroll.offsetWidth;
+            $('body').append('<div id="editor-drag-cover" style="display:block;"></div>');
+            document.onmousemove = function( ev ){
+                var w = document.body.clientWidth;
+
+                var oEvent = ev || event;
+                var l = oEvent.clientX - disX;
+                oCode.style.width = l + 'px';
+                oPreView.style.left = l + 1 + 'px';
+                oPreView.style.width = w - l + 1 + 'px';
+                oScroll.style.left = l - sw / 2 + 'px';
+                editor.resize();
+            };
+            document.onmouseup = function(){
+                document.onmousemove = null;
+                document.onmouseup = null;
+                $( '#editor-drag-cover' ).remove();
+            };
+            return false;
+        };
     }
-    pageEdit.initView();
 
-    $( '#statusBar' ).get(0).onselectstart = function(){ return false };
+    exports.initLayout = function (left, center, right) {
+        var w = document.body.clientWidth;
+        left.width( w / 2 );
 
+        var l = left.width();
+        var sw = center.width();
+        var scw = center.find('span').width();
+        right.css( 'left', l + scw + 'px' );
+        right.css( 'width', w - (l + scw) + 'px' );
+        center.css( 'left', l - sw / 2 + 'px' );
+    };
 
-    var interval;
-    editor.on( 'change', function() {
-        if( window.frames[ 'result' ] ){
-            clearTimeout( interval );
-            interval = setTimeout( pageEdit.resetIframe, 300 );
-        }
-    });
-
-    $( window ).keydown(function(event){
-        //Save
-        if( event.keyCode === 83 && ( event.ctrlKey === true || event.metaKey === true ) ){
-            pageEdit.sendCode();
-            return false;
-        }
-
-        //Toggle preview
-        if( event.keyCode === 80 && ( event.ctrlKey === true || event.metaKey === true ) ){
-            pageEdit.togglePreview();
-            return false;
-        }
-
-        //Show Menu
-        if( event.keyCode === 77 && ( event.ctrlKey === true || event.metaKey === true ) ){
-            menu.toggleMenu();
-            return false;
-        }
-        window.localStorage[ id ] = editor.getValue();
-    });
-
-    //Save
-    $( '#save' ).click( pageEdit.sendCode );
-    $( '#btn_preview' ).click( pageEdit.togglePreview );
+    exports.sendCode = function (id, codeText, type) {
+        window.localStorage.removeItem( id );
+        $.post( '/createCode', { id : id, codeText : codeText, type: type } ).success( function (result) {
+            if (result.status === 0 || result.status === 1) toastr.success( '保存成功' );
+            if (result.status === 0 || result.status === 2){
+                menu.cashe.rm('history');
+                menu.getDemos( menu.appendChildDemos );
+            }
+            if (result.status === 2) window.location.pathname = 'html/' + result.data._id;
+        } ).error(function(e){
+            toastr.error( '保存失败' );
+        });
+    };
 });
-
-if( window.console ) window.console.log( '本产品由 Berwin 独立开发\n开发者邮箱：berwin1995@qq.com\n开源地址：https://github.com/berwin/demo' );

@@ -15,12 +15,13 @@
 </head>
 <body>
     <div id="code"></div>
+    <div id="scroll"><span></span></div>
+    <div id="repl"></div>
     <div id="statusBar">
         <p>本产品由 Berwin 独立开发</p>
         <div id="btn_menu" title="ctrl+m">菜单</div>
         <div id="save" title="ctrl+s">保存</div>
-        <div id="btn_preview" title="ctrl+alt+p">实时预览</div>
-        <div id="browse"><a href="/<%- data._id %>/result" target="_blank">浏览</a></div>
+        <!-- <div id="browse"><a href="/<%- data._id %>/result" target="_blank">文件地址</a></div> -->
     </div>
     <div id="menu" class="none">
         <div class="p20_0 tc"><img id="avatar" src="/images/avatar.png" alt="" /></div>
@@ -79,10 +80,11 @@
 <script src="/lib/ace/emmet.js"></script>
 <script src="/lib/ace/ext-emmet.js"></script>
 <script src="/lib/toastr/toastr.min.js"></script>
+<script src="/lib/jqconsole.min.js"></script>
 <script src="/js/common.js"></script>
 
 <script>
-    seajs.use( ['/js/edit.js', '/js/menu.js'] );
+    seajs.use(['/js/edit-js', '/js/menu.js']);
 </script>
 </body>
 </html>
