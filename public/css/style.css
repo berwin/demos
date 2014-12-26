@@ -135,6 +135,9 @@ input,button{outline:none;}
 
 
 /***** index *****/
+.index_head{text-align:center;padding:5% 0;}
+.index_head h1{font:2.5rem/3rem '微软雅黑','Helvetica Neue',sans-serif,SimHei;}
+.index_head h2{font:1.5rem/1.5em "proxima-nova", sans-serif;}
 .index_box{width:100%;position:absolute;top:50%;margin-top:-30px;text-align:center;}
 .cd_btn{display:inline-block;background:#34495E;color:#fff;width:220px;height:60px;font:24px/60px '';border-radius:6px;margin:0 10px;transition:.2s;}
 .cd_btn:hover{background-color:#4e6d8d;}
