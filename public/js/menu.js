@@ -3,7 +3,12 @@
 define(function (require, exports, module) {
     var tool = require( './tool' );
     var cashe = tool.cashe();
-    var id = window.location.pathname.substring( 1 );
+    var id = '';
+
+    var pathname = window.location.pathname;
+    if( pathname.indexOf('/js/') === 0 ) id = pathname.substring( 4 );
+    if( pathname.indexOf('/html/') === 0 ) id = pathname.substring( 6 );
+
     var cookie = tool.cookieToObject( document.cookie );
 
     function addLoading () {
@@ -26,10 +31,10 @@ define(function (require, exports, module) {
     }
     function appendChildDemos (list) {
         var ul = document.createElement('ul');
-        var pathname = window.location.pathname.substring(1);
+
         for( var i = 0; i < list.length; i++ ){
-            var classActive = ( list[i]._id === pathname ? 'on' : '' );
-            var str = '<li><a href="/'+ list[i]._id +'" class="'+ classActive +'">'+ list[i]._id +'</a></li>';
+            var classActive = ( list[i]._id === id ? 'on' : '' );
+            var str = '<li><a href="/'+ list[i].type +'/'+ list[i]._id +'" class="'+ classActive +'">'+ list[i]._id +'.'+ list[i].type +'</a></li>';
             $( ul ).append( str );
         }
         $( '#history' ).html('');
@@ -213,6 +218,14 @@ define(function (require, exports, module) {
     $( '#btn_retrieve' ).click( retrieve );
     $( '#btn_changePw' ).click( changePw );
     $( '#btn_signOut' ).click( signOut );
+
+    $( window ).keydown(function(event){
+        //Show Menu
+        if( event.keyCode === 77 && ( event.ctrlKey === true || event.metaKey === true ) ){
+            toggleMenu();
+            return false;
+        }
+    })
 
     exports.toggleMenu = toggleMenu;
     exports.getDemos = getDemos;
