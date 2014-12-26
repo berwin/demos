@@ -4,11 +4,16 @@ define(function (require, exports, module) {
     var menu = require('./menu');
 
     exports.initCode = function (id, editor) {
+        var url = '/' + id + '/result';
+        var pathname = window.location.pathname;
+        if( pathname.indexOf('/js/') === 0 ) url += '?type=js';
+        if( pathname.indexOf('/html/') === 0 ) url += '?type=html';
+
         var cache = window.localStorage[ id ];
         if( cache  ){
             editor.setValue( cache );
         }else{
-            $.get( '/' + id + '/result' ).success(function( codeText ){
+            $.get( url ).success(function( codeText ){
                 editor.setValue( codeText );
             });
         }
