@@ -9,7 +9,8 @@ define(function (require, exports, module) {
     var jqconsole = $('#repl').jqconsole(header, '> ');
 
     window.console.log = function(a) {
-        jqconsole.Write( a + '\n');
+        var str = JSON.stringify( a );
+        jqconsole.Write( str + '\n');
     }
 
     // Abort prompt on Ctrl+Z.
