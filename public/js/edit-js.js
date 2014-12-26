@@ -7,7 +7,7 @@ define(function (require, exports, module) {
 
     var id = window.location.pathname.substring( 4 );
     var editor = ace.edit("code");
-    editor.setTheme("ace/theme/tomorrow");
+    editor.setTheme("ace/theme/dawn");
     editor.setShowPrintMargin(false);
     editor.getSession().setMode("ace/mode/javascript");
     var StatusBar = ace.require("ace/ext/statusbar").StatusBar;
