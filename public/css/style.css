@@ -221,9 +221,9 @@ iframe{border:none;height:100%;width:100%;}
 .result{color:#808080;}
 
 /* blur */
-.jqconsole-blurred {color: #999;}
+.jqconsole-blurred {color: #838383;}
 .jqconsole-blurred .jqconsole-prompt {color: #999;}
 .jqconsole-blurred .jqconsole-cursor {background: #ececec;}
-.jqconsole-blurred .jqconsole-old-prompt{color:#999;}
-.jqconsole-blurred .error {color: #999;}
+.jqconsole-blurred .jqconsole-old-prompt{color:#82C0FF;}
+.jqconsole-blurred .error {color: #FC9A9A;}
 .jqconsole-blurred .result {color: #999;}
