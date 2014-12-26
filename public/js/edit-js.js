@@ -24,7 +24,13 @@ define(function (require, exports, module) {
         var code = editor.getValue();
         edit.sendCode(id, code, 'js' );
     }
-    
+
+    function runCode () {
+        var code = editor.getValue();
+        consoleJS.handler( code );
+        focusAndBlur();
+    }
+
     function focusAndBlur () {
         $( '.jqconsole' ).removeClass( 'jqconsole-blurred' );
         setTimeout(function () {
@@ -35,9 +41,7 @@ define(function (require, exports, module) {
     $( '#code' ).keydown(function (event) {
         // Run
         if( event.keyCode === 13 && ( event.ctrlKey === true || event.metaKey === true ) ){
-            var code = editor.getValue();
-            consoleJS.handler( code );
-            focusAndBlur();
+            runCode();
             return false;
         }
         //Save
@@ -49,4 +53,5 @@ define(function (require, exports, module) {
     });
 
     $( '#save' ).click( saveCode );
+    $( '#run' ).click( runCode );
 });

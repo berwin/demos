@@ -150,7 +150,7 @@ input,button{outline:none;}
 #statusBar div a{color:#333;}
 #statusBar div:hover{background:rgb(80,80,80);color:#fff;}
 #browse:hover a{color:#fff;}
-#save,#btn_preview,#btn_menu{cursor:pointer;}
+#save,#btn_preview,#btn_menu,#run,#cls{cursor:pointer;}
 
 /***** Preview *****/
 #scroll{width:10px;cursor:col-resize;text-align:center;z-index:2;}
