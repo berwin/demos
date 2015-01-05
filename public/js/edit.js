@@ -2,12 +2,14 @@
 
 define(function (require, exports, module) {
     var menu = require('./menu');
+    var tool = require('./tool');
+
+    var strType = tool.getType();
+    
 
     exports.initCode = function (id, editor) {
-        var url = '/' + id + '/result';
-        var pathname = window.location.pathname;
-        if( pathname.indexOf('/js/') === 0 ) url += '?type=js';
-        if( pathname.indexOf('/html/') === 0 ) url += '?type=html';
+
+        var url = '/' + id + '/result?type=' + strType;
 
         var cache = window.localStorage[ id ];
         if( cache  ){
@@ -63,12 +65,14 @@ define(function (require, exports, module) {
         NProgress.start();
 
         $.post( '/createCode', { id : id, codeText : codeText, type: type } ).success( function (result) {
-            if (result.status === 0 || result.status === 1) toastr.success( '保存成功' );
+            // if (result.status === 0 || result.status === 1) toastr.success( '保存成功' );
+
             if (result.status === 0 || result.status === 2){
                 menu.cashe.rm('history');
                 menu.getDemos( menu.appendChildDemos );
             }
-            if (result.status === 2) window.location.pathname = 'html/' + result.data._id;
+            
+            if (result.status === 2) window.location.pathname = strType + '/' + result.data._id;
 
             NProgress.done();
         } ).error(function(e){
