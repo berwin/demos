@@ -59,6 +59,9 @@ define(function (require, exports, module) {
 
     exports.sendCode = function (id, codeText, type) {
         window.localStorage.removeItem( id );
+
+        NProgress.start();
+
         $.post( '/createCode', { id : id, codeText : codeText, type: type } ).success( function (result) {
             if (result.status === 0 || result.status === 1) toastr.success( '保存成功' );
             if (result.status === 0 || result.status === 2){
@@ -66,8 +69,13 @@ define(function (require, exports, module) {
                 menu.getDemos( menu.appendChildDemos );
             }
             if (result.status === 2) window.location.pathname = 'html/' + result.data._id;
+
+            NProgress.done();
         } ).error(function(e){
+
             toastr.error( '保存失败' );
+
+            NProgress.done();
         });
     };
 });
