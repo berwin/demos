@@ -29,6 +29,15 @@ var util = {
             obj[ aCookie[0] ] = aCookie[1];
         }
         return obj;
+    },
+    getType : function () {
+        var pathname = window.location.pathname;
+        var type = '';
+
+        if( pathname.indexOf('/js/') === 0 ) type = 'js';
+        if( pathname.indexOf('/html/') === 0 ) type = 'html';
+
+        return type;
     }
 };
 
