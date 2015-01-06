@@ -1,13 +1,11 @@
 'use strict';
 
 define(function (require, exports, module) {
-    var tool = require( './tool' );
-    var cashe = tool.cashe();
-    var id = '';
+    var tool = require( './modules/tool' );
+    var requester = require( './modules/requester' );
 
-    var pathname = window.location.pathname;
-    if( pathname.indexOf('/js/') === 0 ) id = pathname.substring( 4 );
-    if( pathname.indexOf('/html/') === 0 ) id = pathname.substring( 6 );
+    var cashe = tool.cashe();
+    var id = tool.getID();
 
     var cookie = tool.cookieToObject( document.cookie );
 
@@ -19,16 +17,21 @@ define(function (require, exports, module) {
     }
 
     function getDemos (callback) {
+
         var history = cashe.get('history');
+
         if( history ){
             callback(history);
         }else{
-            $.post('/getDemosByUserID', {id : id} ).success(function (list) {
+
+            requester.menu.getList().success(function (list) {
                 cashe.set('history', list);
                 callback(list);
             });
+
         }
     }
+
     function appendChildDemos (list) {
         var ul = document.createElement('ul');
 
@@ -42,16 +45,21 @@ define(function (require, exports, module) {
     }
 
     function getUserInfo (callback) {
+
         var userInfo = cashe.get( 'userInfo' );
+
         if( userInfo ){
             callback( userInfo );
         }else{
-            $.post('/getUserInfo', {id : id}).success(function (userInfo) {
+
+            requester.menu.getUserInfo().success(function (userInfo) {
                 cashe.set( 'userInfo', userInfo );
                 callback(userInfo);
             });
+
         }
     }
+
     function getUserInfoInit (userInfo) {
         userInfo.avatar && $( '#avatar' ).attr( 'src', userInfo.avatar );
         $( '#login_before' ).addClass('none');
@@ -61,17 +69,23 @@ define(function (require, exports, module) {
     }
 
     function login () {
+
         var regexpMail = tool.regexp().mail;
         var mail = $( '#mail' ).val();
         var password = $( '#password' ).val();
+
         if( regexpMail.test( mail ) && password ){
-            $.post('/login', {id : id, mail : mail, password: password}).success(function (userInfo) {
+
+            requester.menu.login( mail, password ).success(function (userInfo) {
+
                 getUserInfoInit(userInfo);
                 toastr.success( '登陆成功' );
+
             }).error(function (msg) {
                 toastr.error( msg.responseText );
             });
         }
+
         if( !regexpMail.test( mail ) ) $( '#mail' ).addClass('redBorder');
         if( !password ) $( '#password' ).addClass('redBorder');
     }
@@ -82,10 +96,13 @@ define(function (require, exports, module) {
         addLoading();
         
         if( tool.regexp().mail.test( mail ) ){
-            $.post( '/register', { mail : mail, password : password, id : id } ).success(function () {
+
+            requester.menu.register( mail, password ).success(function () {
+
                 rmLoading();
                 toLogin();
                 toastr.success( '我们已经成功向您的邮箱发送了一封激活邮件，请点击邮件中的链接完成注册！' );
+
             }).error(function (msg) {
                 rmLoading();
                 toastr.error( msg.responseText );
@@ -101,36 +118,52 @@ define(function (require, exports, module) {
         addLoading();
 
         if( tool.regexp().mail.test( mail ) ){
-            $.post( '/retrieve', { id : id, mail : mail } ).success(function () {
+
+            requester.menu.retrieve( mail ).success(function () {
+
                 rmLoading();
                 toastr.success( '您的密码已经发送到您的邮箱里，请注意查收' );
+                toLogin();
+
             }).error(function () {
+
                 rmLoading();
                 toastr.error( '找回密码时，发生了错误请稍后在试' );
+
             });
+
         }else{
+
             rmLoading();
             $( '#retrieve_mail' ).addClass('redBorder');
+
         }
     }
 
     function changePw () {
         var newPw = $( '#change_pw' ).val();
-        $.post( '/changepw', { id: id, password: newPw } ).success(function () {
+
+        requester.menu.changepw( newPw ).success(function () {
+
             goHome();
             $( '#change_pw' ).val('');
             toastr.success( '密码修改成功' );
+
         }).error(function () {
             toastr.success( '修改失败' );
         });
     }
 
     function signOut () {
-        $.post( '/signout', {id: id} ).success(function(){
+
+        requester.menu.signout().success(function(){
+
             toastr.success( '您已经退出' );
             $( '#login_after' ).addClass('none');
             $( '#login_before' ).removeClass('none');
+            
         });
+
     }
 
     function transform (name) {

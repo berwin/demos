@@ -2,7 +2,6 @@
 
 define(function (require, exports, module) {
     var edit = require( './edit' );
-    var tool = require( './tool' );
     var consoleJS = require( './consoleJS' );
 
     var id = window.location.pathname.substring( 4 );
@@ -22,7 +21,7 @@ define(function (require, exports, module) {
 
     function saveCode () {
         var code = editor.getValue();
-        edit.sendCode(id, code, 'js' );
+        edit.sendCode(code, 'js');
     }
 
     function runCode () {

@@ -3,8 +3,6 @@
 define(function (require, exports, module) {
     var editor = ace.edit("code");
     var id = window.location.pathname.substring( 6 );
-    var tool = require( './tool' );
-    var menu = require( './menu' );
     var edit = require( './edit' );
 
     function initView () {

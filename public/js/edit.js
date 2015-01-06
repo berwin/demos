@@ -1,9 +1,11 @@
 'use strict';
 
 define(function (require, exports, module) {
-    var menu = require('./menu');
-    var tool = require('./tool');
+    var menu = require( './menu' );
+    var tool = require( './modules/tool' );
+    var requester = require( './modules/requester' );
 
+    var id = tool.getID();
     var strType = tool.getType();
     
 
@@ -59,12 +61,12 @@ define(function (require, exports, module) {
         center.css( 'left', l - sw / 2 + 'px' );
     };
 
-    exports.sendCode = function (id, codeText, type) {
+    exports.sendCode = function (codeText, type) {
         window.localStorage.removeItem( id );
 
         NProgress.start();
 
-        $.post( '/createCode', { id : id, codeText : codeText, type: type } ).success( function (result) {
+        requester.edit.save( codeText, type ).success( function (result) {
             // if (result.status === 0 || result.status === 1) toastr.success( '保存成功' );
 
             if (result.status === 0 || result.status === 2){

@@ -2,9 +2,7 @@
 
 define(function (require, exports, module) {
     var edit = require( './edit' );
-    var tool = require( './tool' );
     var pageEdit = require( './page-edit-html' );
-    var menu = require('./menu');
     var id = pageEdit.id;
 
     var editor = pageEdit.editor;
@@ -31,7 +29,7 @@ define(function (require, exports, module) {
 
     function saveHTML () {
         window.frames[ 'result' ] && pageEdit.resetIframe();
-        edit.sendCode( id, editor.getValue(), 'html' );
+        edit.sendCode( editor.getValue(), 'html' );
     }
 
     $( window ).keydown(function(event){
