@@ -123,6 +123,7 @@ define(function (require, exports, module) {
 
                 rmLoading();
                 toastr.success( '您的密码已经发送到您的邮箱里，请注意查收' );
+                toLogin();
 
             }).error(function () {
 
