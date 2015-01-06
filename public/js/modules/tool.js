@@ -38,6 +38,13 @@ var util = {
         if( pathname.indexOf('/html/') === 0 ) type = 'html';
 
         return type;
+    },
+    getID : function () {
+        var id = '';
+        var pathname = window.location.pathname;
+        if( pathname.indexOf('/js/') === 0 ) id = pathname.substring( 4 );
+        if( pathname.indexOf('/html/') === 0 ) id = pathname.substring( 6 );
+        return id;
     }
 };
 
