@@ -138,10 +138,10 @@ input,button{outline:none;}
 .index_head{text-align:center;padding:5% 0;}
 .index_head h1{font:2.5rem/3rem '微软雅黑','Helvetica Neue',sans-serif,SimHei;}
 .index_head h2{font:1.5rem/1.5em "proxima-nova", sans-serif;}
+
 .index_box{text-align:center;}
-.cd_btn{display:inline-block;background:#34495E;color:#fff;width:220px;height:60px;font:24px/60px '';border-radius:6px;margin:0 10px;transition:.2s;}
-.cd_btn:hover{background-color:#4e6d8d;}
-.cd_btn:active{background-color:#2c3e50;}
+.index_box .button{display:inline-block;width:220px;height:60px;font:24px/60px '';border-radius:6px;margin:0 10px;}
+
 /***** Edit *****/
 #code,#preview,#scroll,#repl{position: absolute;top: 0;bottom: 20px;}
 #code{left:0;width:100%;}
@@ -210,10 +210,10 @@ iframe{border:none;height:100%;width:100%;}
 
 
 /***** jqconsole ******/
-#repl {color:black;}
+#repl {color:#1c00cf;}
 .jqconsole {padding: 10px;padding-bottom: 10px;word-wrap: break-word;}
-.jqconsole-cursor {background-color: #ccc;}
-.jqconsole-blurred .jqconsole-cursor {background-color: #666;}
+.jqconsole-header{color:#000;}
+.jqconsole-cursor {background-color: #0d0;}
 .jqconsole-prompt {color: #363F47;}
 .jqconsole-old-prompt {color:#0080FF;font-weight: normal;}
 .jqconsole-input {color: #dd0;}
@@ -223,10 +223,12 @@ iframe{border:none;height:100%;width:100%;}
 .error{color:red;}
 .result{color:#808080;}
 
-/* blur */
+/* blur
 .jqconsole-blurred {color: #838383;}
 .jqconsole-blurred .jqconsole-prompt {color: #999;}
-.jqconsole-blurred .jqconsole-cursor {background: #ececec;}
 .jqconsole-blurred .jqconsole-old-prompt{color:#82C0FF;}
 .jqconsole-blurred .error {color: #FC9A9A;}
 .jqconsole-blurred .result {color: #999;}
+*/
+.jqconsole-blurred .jqconsole-cursor {background: #ccc;}
+
