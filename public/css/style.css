@@ -152,7 +152,8 @@ input,button{outline:none;}
 /***** index *****/
 .index_head{text-align:center;padding:5% 0;}
 .index_head h1{font:2.5rem/3rem '微软雅黑','Helvetica Neue',sans-serif,SimHei;}
-.index_head h2{font:1.5rem/1.5em "proxima-nova", sans-serif;}
+.index_head h1{color: #3498db;background-image: -webkit-linear-gradient(90deg,#2980B9,#3498db);-webkit-background-clip: text;-webkit-text-fill-color: transparent;-webkit-animation: hue 60s infinite linear;}
+.index_head h2{color:#7b8993;font:1.5rem/1.5em "proxima-nova", sans-serif;}
 
 .index_box{text-align:center;}
 .index_box .button{display:inline-block;width:220px;height:60px;font:24px/60px '';border-radius:6px;margin:0 10px;}
