@@ -39,7 +39,8 @@ define(function (require, exports, module) {
     function handler (command) {
         if (command) {
             try {
-                jqconsole.Write('<= ' + window.eval(command) + '\n', 'result');
+                var result = eval(command);
+                jqconsole.Write('<= ' + JSON.stringify( result ) + '\n', 'result');
             } catch (e) {
                 jqconsole.Write('Error: ' + e.message + '\n', 'error');
             }
