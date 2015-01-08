@@ -99,6 +99,8 @@ input,button{outline:none;}
     -moz-animation-name: fadeoutleft;
     animation-name: fadeoutleft;
 }
+
+/* Loading */
 @keyframes spin-pulse{
     from{transform:rotate(160deg);opacity:0;box-shadow:0 0 1px rgba(0,61,76,0.9)}
     50%{transform:rotate(145deg);opacity:1}
@@ -132,6 +134,19 @@ input,button{outline:none;}
 #loading{position:absolute;top:50%;left:50%;margin:-30px 0 0 -30px;height:60px;background:#fff;z-index:5;border-radius:50%;}
 #loading .outer{border:5px solid #000;opacity:.9;border-right-color:transparent;border-left-color:transparent;width:50px;height:50px;margin:0 auto;border-radius:50%;-webkit-box-shadow:0 0 35px rgba(0,0,0,0.9);-moz-box-shadow:0 0 35px rgba(0,76,61,0.9);box-shadow:0 0 35px rgba(0,0,0,0.9);-webkit-animation:spin-pulse 1s 0 linear infinite normal;-moz-animation:spin-pulse 1s 0 linear infinite normal;-ms-animation:spin-pulse 1s 0 linear infinite normal;animation:spin-pulse 1s 0 linear infinite normal}
 #loading .inner{border:5px solid #000;opacity:.9;border-left-color:transparent;border-right-color:transparent;border-radius:50%;-webkit-box-shadow:0 0 15px rgba(0,0,0,0.9);-moz-box-shadow:0 0 15px rgba(0,0,0,0.9);box-shadow:0 0 15px rgba(0,0,0,0.9);width:30px;height:30px;position:relative;top:-50px;margin:0 auto;-webkit-animation:spin-right 1s 0 linear infinite normal;-moz-animation:spin-right 1s 0 linear infinite normal;-ms-animation:spin-right 1s 0 linear infinite normal;animation:spin-right 1s 0 linear infinite normal}
+
+
+/* Color */
+@-webkit-keyframes hue {
+    from {
+        -webkit-filter: hue-rotate(0deg);
+    }
+
+    to {
+        -webkit-filter: hue-rotate(-360deg);
+    }
+}
+.hue,#repl{-webkit-animation: hue 60s infinite linear;}
 
 
 /***** index *****/
