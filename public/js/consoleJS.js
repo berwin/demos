@@ -5,7 +5,7 @@ define(function (require, exports, module) {
     var header = 'Welcome to Demos!\n' +
         'Here, you can enjoy, fun programming\n'+
         'Ctrl+Enter is Run Script  Ctrl+K is Clear Screen\n'+
-        '----------------------------------------\n';
+        '------------------------------------------------------\n';
     var jqconsole = $('#repl').jqconsole(header, '> ');
 
     window.console.log = function(a) {
@@ -40,7 +40,7 @@ define(function (require, exports, module) {
         if (command) {
             try {
                 var result = eval(command);
-                jqconsole.Write('<= ' + JSON.stringify( result ) + '\n', 'result');
+                jqconsole.Write(JSON.stringify( result ) + '\n', 'result');
             } catch (e) {
                 jqconsole.Write('Error: ' + e.message + '\n', 'error');
             }
