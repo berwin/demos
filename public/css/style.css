@@ -227,7 +227,7 @@ iframe{border:none;height:100%;width:100%;}
 
 /***** jqconsole ******/
 #repl {color:#1c00cf;}
-.jqconsole {padding: 10px;padding-bottom: 10px;word-wrap: break-word;}
+.jqconsole {padding: 10px;padding-bottom: 10px;word-wrap: break-word;font:12px monospace, 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro';}
 .jqconsole-header{color:#000;}
 .jqconsole-cursor {background-color: #0d0;}
 .jqconsole-prompt {color: #363F47;}
