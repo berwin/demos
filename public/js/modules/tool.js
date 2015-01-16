@@ -45,6 +45,21 @@ var util = {
         if( pathname.indexOf('/js/') === 0 ) id = pathname.substring( 4 );
         if( pathname.indexOf('/html/') === 0 ) id = pathname.substring( 6 );
         return id;
+    },
+    drag : function (target, cb, cb2) {
+        target.onmousedown = function( ev ){
+            var oEvent = ev || event;
+            var disX = oEvent.clientX - oScroll.offsetLeft;
+            var sw = oScroll.offsetWidth;
+            
+            document.onmousemove = function( ev ){
+                
+            };
+            document.onmouseup = function(){
+                
+            };
+            return false;
+        };
     }
 };
 

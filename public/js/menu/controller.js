@@ -1,20 +1,20 @@
 'use strict';
 
+/**
+ *
+ * Menu controller
+ *
+ */
+
+
 define(function (require, exports, module) {
-    var tool = require( './modules/tool' );
-    var requester = require( './modules/requester' );
+
+    var requester = require( '../modules/requester' );
+    var tool = require( '../modules/tool' );
 
     var cashe = tool.cashe();
     var id = tool.getID();
-
     var cookie = tool.cookieToObject( document.cookie );
-
-    function addLoading () {
-        $( 'body' ).append('<div id="loading"><div class="outer"></div><div class="inner"></div></div>');
-    }
-    function rmLoading () {
-        $( '#loading' ).remove();
-    }
 
     function getDemos (callback) {
 
@@ -32,6 +32,14 @@ define(function (require, exports, module) {
         }
     }
 
+    function toClose () {
+        if ($( '#login' ).get(0)) $( '#login' ).get(0).className = '';
+        if ($( '#register' ).get(0)) $( '#register' ).get(0).className = 'none';
+        if($( '#retrieve' ).get(0)) $( '#retrieve' ).get(0).className = 'none';
+        $('#login_after_btn').get(0).className = '';
+        $('#changePw').get(0).className = 'none';
+    }
+
     function appendChildDemos (list) {
         var ul = document.createElement('ul');
 
@@ -42,6 +50,69 @@ define(function (require, exports, module) {
         }
         $( '#history' ).html('');
         $( '#history' ).append( ul );
+    }
+
+    function toggleMenu () {
+        var menu = $( '#menu' ).get( 0 );
+        var menuShow = function(){
+            $( '#menu' ).addClass( 'fadeinleft' );
+            $( '#menu' ).removeClass( 'none' );
+            getDemos( appendChildDemos );
+        };
+        var menuHide = function(){
+            $('#menu').get(0).className = 'fadeoutleft';
+            toClose();
+            setTimeout(function(){
+                $( '#menu' ).get(0).className = 'none';
+            },700);
+        };
+
+        if (menu.className.indexOf( 'none' ) === -1) {
+            menuHide();
+        }else{
+            menuShow();
+        }
+    }
+
+    function rmRedBorder () {
+        $(this).removeClass( 'redBorder' );
+    }
+
+    function transform (name) {
+        $( '#retrieve' ).get(0).className = 'none';
+        $( '#register' ).get(0).className = 'none';
+        $( '#login' ).get(0).className = 'none';
+        $( '#' + name ).get(0).className = 'animated flipInY';
+    }
+    function toRegister () {
+        transform( 'register' );
+    }
+    function toLogin () {
+        transform( 'login' );
+    }
+    function toRetrieve () {
+        transform( 'retrieve' );
+    }
+    function toChangePw () {
+        $( '#login_after_btn' ).get(0).className = 'animated zoomOutDown';
+        setTimeout(function () {
+            $( '#changePw' ).get(0).className = 'animated bounceInDown';
+        },1000);
+    }
+    function goHome () {
+        $( '#changePw' ).get(0).className = 'animated bounceOutUp';
+        setTimeout(function () {
+            $( '#login_after_btn' ).get(0).className = 'animated zoomInUp';
+        },500);
+    }
+
+
+    function getUserInfoInit (userInfo) {
+        userInfo.avatar && $( '#avatar' ).attr( 'src', userInfo.avatar );
+        $( '#login_before' ).addClass('none');
+        $( '#login_after' ).removeClass('none');
+        cashe.rm('history');
+        getDemos( appendChildDemos );
     }
 
     function getUserInfo (callback) {
@@ -59,13 +130,18 @@ define(function (require, exports, module) {
 
         }
     }
+    
+    function load () {
+        if( cookie && cookie.login_session ){
+            getUserInfo( getUserInfoInit );
+        }
+    }
 
-    function getUserInfoInit (userInfo) {
-        userInfo.avatar && $( '#avatar' ).attr( 'src', userInfo.avatar );
-        $( '#login_before' ).addClass('none');
-        $( '#login_after' ).removeClass('none');
-        cashe.rm('history');
-        getDemos( appendChildDemos );
+    function addLoading () {
+        $( 'body' ).append('<div id="loading"><div class="outer"></div><div class="inner"></div></div>');
+    }
+    function rmLoading () {
+        $( '#loading' ).remove();
     }
 
     function login () {
@@ -79,6 +155,7 @@ define(function (require, exports, module) {
             requester.menu.login( mail, password ).success(function (userInfo) {
 
                 getUserInfoInit(userInfo);
+                $( '#password' ).val('');
                 toastr.success( '登陆成功' );
 
             }).error(function (msg) {
@@ -166,102 +243,26 @@ define(function (require, exports, module) {
 
     }
 
-    function transform (name) {
-        $( '#retrieve' ).get(0).className = 'none';
-        $( '#register' ).get(0).className = 'none';
-        $( '#login' ).get(0).className = 'none';
-        $( '#' + name ).get(0).className = 'animated flipInY';
-    }
-    function toRegister () {
-        transform( 'register' );
-    }
-    function toLogin () {
-        transform( 'login' );
-    }
-    function toRetrieve () {
-        transform( 'retrieve' );
-    }
-    function toChangePw () {
-        $( '#login_after_btn' ).get(0).className = 'animated zoomOutDown';
-        setTimeout(function () {
-            $( '#changePw' ).get(0).className = 'animated bounceInDown';
-        },1000);
-    }
-    function goHome () {
-        $( '#changePw' ).get(0).className = 'animated bounceOutUp';
-        setTimeout(function () {
-            $( '#login_after_btn' ).get(0).className = 'animated zoomInUp';
-        },500);
-    }
-
-    function toClose () {
-        if ($( '#login' ).get(0)) $( '#login' ).get(0).className = '';
-        if ($( '#register' ).get(0)) $( '#register' ).get(0).className = 'none';
-        if($( '#retrieve' ).get(0)) $( '#retrieve' ).get(0).className = 'none';
-        $('#login_after_btn').get(0).className = '';
-        $('#changePw').get(0).className = 'none';
-    }
-
-    function toggleMenu () {
-        var menu = $( '#menu' ).get( 0 );
-        var menuShow = function(){
-            $( '#menu' ).addClass( 'fadeinleft' );
-            $( '#menu' ).removeClass( 'none' );
-            getDemos( appendChildDemos );
-        };
-        var menuHide = function(){
-            $('#menu').get(0).className = 'fadeoutleft';
-            toClose();
-            setTimeout(function(){
-                $( '#menu' ).get(0).className = 'none';
-            },700);
-        };
-
-        if (menu.className.indexOf( 'none' ) === -1) {
-            menuHide();
-        }else{
-            menuShow();
-        }
-    }
-
-    function rmRedBorder () {
-        $(this).removeClass( 'redBorder' );
-    }
-
-    if( cookie && cookie.login_session ){
-        getUserInfo( getUserInfoInit );
-    }
-
-    $( '#btn_menu' ).click( toggleMenu );
-
-    $( '#mail' ).blur( rmRedBorder );
-    $( '#password' ).blur( rmRedBorder );
-    $( '#register_mail' ).blur( rmRedBorder );
-    $( '#retrieve_mail' ).blur( rmRedBorder );
-
-    $( '.register_link' ).click( toRegister );
-    $( '.login_link' ).click( toLogin );
-    $( '.retrieve_link' ).click( toRetrieve );
-    $( '#change_link' ).click( toChangePw );
-    $( '.backHome' ).click( goHome );
-
-
-    $( '#btn_login' ).click( login );
-    $( '#btn_register' ).click( register );
-    $( '#btn_retrieve' ).click( retrieve );
-    $( '#btn_changePw' ).click( changePw );
-    $( '#btn_signOut' ).click( signOut );
-
-    $( window ).keydown(function(event){
-        //Show Menu
-        if( event.keyCode === 77 && ( event.ctrlKey === true || event.metaKey === true ) ){
-            toggleMenu();
-            return false;
-        }
-    })
+    exports.load = load;
 
     exports.toggleMenu = toggleMenu;
-    exports.getDemos = getDemos;
     exports.appendChildDemos = appendChildDemos;
+    exports.getDemos = getDemos;
+
+    exports.rmRedBorder = rmRedBorder;
+
+    exports.toRegister = toRegister;
+    exports.toLogin = toLogin;
+    exports.toRetrieve = toRetrieve;
+    exports.toChangePw = toChangePw;
+    exports.goHome = goHome;
+
+    exports.login = login;
+    exports.register = register;
+    exports.retrieve = retrieve;
+    exports.changePw = changePw;
+    exports.signOut = signOut;
+
     exports.cashe = cashe;
+
 });

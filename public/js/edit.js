@@ -1,7 +1,7 @@
 'use strict';
 
 define(function (require, exports, module) {
-    var menu = require( './menu' );
+    var menu = require( './menu/menu' );
     var tool = require( './modules/tool' );
     var requester = require( './modules/requester' );
 

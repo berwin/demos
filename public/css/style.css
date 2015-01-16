@@ -196,7 +196,11 @@ iframe{border:none;height:100%;width:100%;}
 #menu ul li a.on,#menu ul li:hover a{color:#4183c4;}
 
 #avatar{border-radius:50%;width:100px;height:100px;}
+
 .history{border-top:1px solid #eee;}
+.history dt{position:relative;}
+.history span{position:absolute;right:20px;bottom:20px;}
+.history span img{width:20px;height:20px;}
 
 #account p{text-align:center;}
 #account .acc_link_box{width:200px;margin:0 auto;}
