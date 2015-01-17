@@ -32,24 +32,30 @@ define(function (require, exports, module) {
         }
     }
 
+    function appendChildDemos (list) {
+        var ul = document.createElement('ul');
+
+        for( var i = 0; i < list.length; i++ ){
+            var classActive = ( list[i]._id === id ? 'on' : '' );
+            var str = '<li><div class="del_history none"><img src="/images/close.png" /></div><a href="/'+ list[i].type +'/'+ list[i]._id +'" class="'+ classActive +'">'+ list[i]._id +'.'+ list[i].type +'</a></li>';
+            $( ul ).append( str );
+        }
+
+        $( '#history' ).html('');
+        $( '#history' ).append( ul );
+    }
+
+    function clearHistory () {
+        cashe.rm('history');
+        getDemos( appendChildDemos );
+    }
+
     function toClose () {
         if ($( '#login' ).get(0)) $( '#login' ).get(0).className = '';
         if ($( '#register' ).get(0)) $( '#register' ).get(0).className = 'none';
         if($( '#retrieve' ).get(0)) $( '#retrieve' ).get(0).className = 'none';
         $('#login_after_btn').get(0).className = '';
         $('#changePw').get(0).className = 'none';
-    }
-
-    function appendChildDemos (list) {
-        var ul = document.createElement('ul');
-
-        for( var i = 0; i < list.length; i++ ){
-            var classActive = ( list[i]._id === id ? 'on' : '' );
-            var str = '<li><a href="/'+ list[i].type +'/'+ list[i]._id +'" class="'+ classActive +'">'+ list[i]._id +'.'+ list[i].type +'</a></li>';
-            $( ul ).append( str );
-        }
-        $( '#history' ).html('');
-        $( '#history' ).append( ul );
     }
 
     function toggleMenu () {
@@ -243,6 +249,46 @@ define(function (require, exports, module) {
 
     }
 
+
+    // history list
+
+    function historyMouseover () {
+        $( this ).find( '.del_history' ).removeClass( 'none' );
+    }
+
+    function historyMouseout () {
+        $( this ).find( '.del_history' ).addClass( 'none' );
+    }
+
+    function deleteMouseover () {
+        $(this).addClass('bgc');
+    }
+
+    function deleteMouseout () {
+        $(this).removeClass('bgc');
+    }
+
+    function deleteClick () {
+        NProgress.start();
+
+        var str = $( this ).parent().find( 'a' ).text();
+        var id = str.substring(0, str.lastIndexOf( '.' ));
+
+        requester.menu.rmCode( id ).success(function () {
+            
+            clearHistory();
+            
+            NProgress.done();
+
+        }).error(function () {
+
+            NProgress.done();
+
+            toastr.error( '删除失败' );
+
+        });
+    }
+
     exports.load = load;
 
     exports.toggleMenu = toggleMenu;
@@ -263,6 +309,13 @@ define(function (require, exports, module) {
     exports.changePw = changePw;
     exports.signOut = signOut;
 
-    exports.cashe = cashe;
+    // history list
+    exports.historyMouseover = historyMouseover;
+    exports.historyMouseout = historyMouseout;
+    exports.deleteMouseover = deleteMouseover;
+    exports.deleteMouseout = deleteMouseout;
+    exports.deleteClick = deleteClick;
+
+    exports.clearHistory = clearHistory;
 
 });

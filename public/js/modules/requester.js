@@ -33,6 +33,10 @@ define(function (require, exports, module) {
 
         signout : function () {
             return $.post( '/signout', {id: id} );
+        },
+
+        rmCode : function (id) {
+            return $.post( '/rmCode/' + id, {id: id} );
         }
     };
 

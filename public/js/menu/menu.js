@@ -1,7 +1,6 @@
 'use strict';
 
 define(function (require, exports, module) {
-    var tool = require( '../modules/tool' );
     var controller = require( './controller' );
 
     controller.load();
@@ -25,6 +24,13 @@ define(function (require, exports, module) {
     $( '#btn_changePw' ).click( controller.changePw );
     $( '#btn_signOut' ).click( controller.signOut );
 
+    // history list
+    $( '#history' ).on( 'mouseover', 'ul li', controller.historyMouseover );
+    $( '#history' ).on( 'mouseout', 'ul li', controller.historyMouseout );
+    $( '#history' ).on( 'mouseover', '.del_history', controller.deleteMouseover );
+    $( '#history' ).on( 'mouseout', '.del_history', controller.deleteMouseout );
+    $( '#history' ).on( 'click', '.del_history', controller.deleteClick );
+
     $( window ).keydown(function(event){
         //Show Menu
         if( event.keyCode === 77 && ( event.ctrlKey === true || event.metaKey === true ) ){
@@ -35,5 +41,5 @@ define(function (require, exports, module) {
 
     exports.getDemos = controller.getDemos;
     exports.appendChildDemos = controller.appendChildDemos;
-    exports.cashe = controller.cashe;
+    exports.clearHistory = controller.clearHistory;
 });

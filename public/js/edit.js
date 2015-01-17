@@ -70,8 +70,7 @@ define(function (require, exports, module) {
             // if (result.status === 0 || result.status === 1) toastr.success( '保存成功' );
 
             if (result.status === 0 || result.status === 2){
-                menu.cashe.rm('history');
-                menu.getDemos( menu.appendChildDemos );
+                menu.clearHistory();
             }
             
             if (result.status === 2) window.location.pathname = strType + '/' + result.data._id;
