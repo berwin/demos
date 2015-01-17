@@ -15,6 +15,7 @@ input,button{outline:none;}
 .clearfix:before,.clearfix:after{content:''; display:table;}.clearfix:after{clear:both;}.clearfix{*zoom:1;}
 .none{display:none;}
 .block{display:block;}
+.bgc{background:none!important;}
 
 .button{border:none;border-radius:5px;background:#3498db;color:#fff;transition:.2s;cursor:pointer;}
 .button:hover{background:#5dade2;}
@@ -188,19 +189,20 @@ iframe{border:none;height:100%;width:100%;}
     -moz-animation-fill-mode: both;
     animation-fill-mode: both;
 }
-#menu h1{margin:0;padding:20px;font:24px Helvetica, arial, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";}
-#menu h1,#menu ul li{text-indent:20px;border-bottom:1px solid #eee;}
+#menu h1{margin:0;padding:20px;text-indent:20px;font:24px Helvetica, arial, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";}
+#menu h1,#menu ul li{border-bottom:1px solid #eee;}
 #menu ul li{line-height:46px;}
 #menu ul li:hover{cursor:pointer;}
-#menu ul li a{display:block;color:#666;}
+#menu ul li a{display:block;color:#666;margin-left:22px;}
 #menu ul li a.on,#menu ul li:hover a{color:#4183c4;}
 
 #avatar{border-radius:50%;width:100px;height:100px;}
 
 .history{border-top:1px solid #eee;}
-.history dt{position:relative;}
-.history span{position:absolute;right:20px;bottom:20px;}
-.history span img{width:20px;height:20px;}
+
+#history li{position:relative;}
+.del_history{position:absolute;left:5px;bottom:17px;width:13px;height:13px;line-height:0;background:#fc625d;border-radius:50%;}
+#history img{width:100%;height:100%;}
 
 #account p{text-align:center;}
 #account .acc_link_box{width:200px;margin:0 auto;}
