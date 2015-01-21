@@ -68,4 +68,5 @@ define(function (require, exports, module) {
     } );
 
     exports.handler = handler;
+    exports.jqconsole = jqconsole;
 });

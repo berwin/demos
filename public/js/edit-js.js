@@ -43,10 +43,15 @@ define(function (require, exports, module) {
             runCode();
             return false;
         }
-        //Save
+        // Save
         if( event.keyCode === 83 && ( event.ctrlKey === true || event.metaKey === true ) ){
             saveCode();
             return false;
+        }
+
+        // Clear
+        if( event.keyCode === 75 && ( event.ctrlKey === true || event.metaKey === true ) ){
+            consoleJS.jqconsole.Clear();
         }
         window.localStorage[ id ] = editor.getValue();
     });
