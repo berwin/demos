@@ -25,6 +25,8 @@ define(function (require, exports, module) {
             clearTimeout( interval );
             interval = setTimeout( pageEdit.resetIframe, 300 );
         }
+
+        edit.setLocalStorage( editor.getValue() );
     });
 
     function saveHTML () {
@@ -44,8 +46,6 @@ define(function (require, exports, module) {
             pageEdit.togglePreview();
             return false;
         }
-
-        window.localStorage[ id ] = editor.getValue();
     });
 
     //Save

@@ -7,7 +7,7 @@ define(function (require, exports, module) {
 
     var menu = {
 
-        getList : function (callback) {
+        getList : function () {
             return $.post( '/getDemosByUserID', {id : id} );
         },
 
@@ -41,6 +41,10 @@ define(function (require, exports, module) {
     };
 
     var edit = {
+        getCodeInfo : function (type) {
+            return $.get( '/getCodeInfo/'+ id +'/' + type );
+        },
+
         save : function (codeText, type) {
             return $.post( '/createCode', { id : id, codeText : codeText, type: type } );
         }

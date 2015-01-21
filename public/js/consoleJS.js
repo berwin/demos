@@ -63,10 +63,6 @@ define(function (require, exports, module) {
     // Initiate the first prompt.
     handler();
 
-    $( '#cls' ).click( function () {
-        jqconsole.Clear();
-    } );
-
     exports.handler = handler;
     exports.jqconsole = jqconsole;
 });

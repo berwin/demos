@@ -160,6 +160,8 @@ define(function (require, exports, module) {
 
             requester.menu.login( mail, password ).success(function (userInfo) {
 
+                tool.setCookie( 'userID_' + id, userInfo.codeUserID );
+
                 getUserInfoInit(userInfo);
                 $( '#password' ).val('');
                 toastr.success( '登陆成功' );

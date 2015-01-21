@@ -19,6 +19,10 @@ define(function (require, exports, module) {
     edit.initLayout( $('#code'), $('#scroll'), $('#repl') );
 
 
+    editor.on( 'change', function() {
+        edit.setLocalStorage( editor.getValue() );
+    });
+
     function saveCode () {
         var code = editor.getValue();
         edit.sendCode(code, 'js');
@@ -53,8 +57,11 @@ define(function (require, exports, module) {
         if( event.keyCode === 75 && ( event.ctrlKey === true || event.metaKey === true ) ){
             consoleJS.jqconsole.Clear();
         }
-        window.localStorage[ id ] = editor.getValue();
     });
+
+    $( '#cls' ).click( function () {
+        consoleJS.jqconsole.Clear();
+    } );
 
     $( '#save' ).click( saveCode );
     $( '#run' ).click( runCode );

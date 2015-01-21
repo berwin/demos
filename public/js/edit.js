@@ -11,15 +11,25 @@ define(function (require, exports, module) {
 
     exports.initCode = function (id, editor) {
 
-        var url = '/' + id + '/result?type=' + strType;
+        var url = '/' + id + '/result/' + strType;
 
         var cache = window.localStorage[ id ];
         if( cache  ){
             editor.setValue( cache );
         }else{
-            $.get( url ).success(function( codeText ){
-                editor.setValue( codeText );
+            requester.edit.getCodeInfo( strType ).success(function( codeInfo ){
+                tool.setCookie( 'userID_' + id, codeInfo.userID );
+                editor.setValue( codeInfo.codeText );
             });
+        }
+    };
+
+    exports.setLocalStorage = function (value) {
+        var usreID = tool.getCookie( 'userID' );
+        var codeUserID = tool.getCookie( 'userID_' + id );
+
+        if (codeUserID === usreID) {
+            window.localStorage[ id ] = value;
         }
     };
 
