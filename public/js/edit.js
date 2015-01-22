@@ -28,7 +28,7 @@ define(function (require, exports, module) {
         var usreID = tool.getCookie( 'userID' );
         var codeUserID = tool.getCookie( 'userID_' + id );
 
-        if (codeUserID === usreID) {
+        if (codeUserID === usreID || window.localStorage[ id ]) {
             window.localStorage[ id ] = value;
         }
     };
