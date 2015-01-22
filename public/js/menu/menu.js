@@ -37,7 +37,15 @@ define(function (require, exports, module) {
             controller.toggleMenu();
             return false;
         }
-    })
+    });
+
+    // login
+    $( '#password' ).keydown(function (event) {
+        if( event.keyCode === 13 ){
+            controller.login();
+            return false;
+        }
+    });
 
     exports.getDemos = controller.getDemos;
     exports.appendChildDemos = controller.appendChildDemos;
