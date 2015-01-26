@@ -1,7 +1,7 @@
 'use strict';
 var express = require( 'express' );
 var app = express();
-var logger = require('morgan')
+var logger = require('morgan');
 var router = require('./lib/router');
 var config = require( './config' );
 var path = require( 'path' );
