@@ -272,9 +272,16 @@ define(function (require, exports, module) {
         NProgress.start();
 
         var str = $( this ).parent().find( 'a' ).text();
-        var id = str.substring(0, str.lastIndexOf( '.' ));
+        var historyID = str.substring(0, str.lastIndexOf( '.' ));
 
-        requester.menu.rmCode( id ).success(function () {
+        var id = tool.getID();
+
+        var data = {
+            id : id,
+            historyID : historyID
+        };
+
+        requester.menu.rmCode( data ).success(function () {
             
             clearHistory();
             

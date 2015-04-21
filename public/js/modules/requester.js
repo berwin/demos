@@ -35,8 +35,8 @@ define(function (require, exports, module) {
             return $.post( '/signout', {id: id} );
         },
 
-        rmCode : function (id) {
-            return $.post( '/rmCode/' + id, {id: id} );
+        rmCode : function (data) {
+            return $.post( '/rmCode/' + data.historyID, {id: data.id} );
         }
     };
 
