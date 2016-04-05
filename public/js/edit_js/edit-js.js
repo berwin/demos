@@ -1,7 +1,7 @@
 'use strict';
 
 define(function (require, exports, module) {
-    var edit = require( './edit' );
+    var edit = require( '../edit' );
     var consoleJS = require( './consoleJS' );
 
     var id = window.location.pathname.substring( 4 );

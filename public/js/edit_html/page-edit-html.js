@@ -3,7 +3,7 @@
 define(function (require, exports, module) {
     var editor = ace.edit("code");
     var id = window.location.pathname.substring( 6 );
-    var edit = require( './edit' );
+    var edit = require( '../edit' );
 
     function initView () {
         var html = '<div id="preview">'

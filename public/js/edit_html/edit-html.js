@@ -1,7 +1,7 @@
 'use strict';
 
 define(function (require, exports, module) {
-    var edit = require( './edit' );
+    var edit = require( '../edit' );
     var pageEdit = require( './page-edit-html' );
     var id = pageEdit.id;
 
