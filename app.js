@@ -6,16 +6,28 @@
  */
 
 var app = require('koa')();
+var path = require('path');
 var logger = require('koa-logger');
 var serve = require('koa-static');
 var bodyParser = require('koa-bodyparser');
+var render = require('koa-ejs');
 var route = require('./route/index.js');
 var config = require('./config/index.js');
 
+
 // 注册中间件
 app.use(logger());
-app.use(serve(__dirname + '/public'));
+app.use(serve(path.join(__dirname, 'public')));
 app.use(bodyParser());
+
+render(app, {
+  root: path.join(__dirname, 'view'),
+  layout: false,
+  viewExt: 'html',
+  cache: false,
+  debug: true
+});
+
 app.use(route.routes());
 
 if (!module.parent) {
