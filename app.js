@@ -14,7 +14,6 @@ var render = require('koa-ejs');
 var route = require('./route/index.js');
 var config = require('./config/index.js');
 
-
 // 注册中间件
 app.use(logger());
 app.use(serve(path.join(__dirname, 'public')));
@@ -39,4 +38,4 @@ if (!module.parent) {
   });
 }
 
-module.exports = config;
+module.exports = app;
