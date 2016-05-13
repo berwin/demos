@@ -8,7 +8,7 @@
 'use strict';
 
 var router = require('koa-router')();
-var webCtrl = require('../controller/web/index.js');
+var webCtrl = require('../controllers/web/index.js');
 
 router.get('/', webCtrl.index);
 
