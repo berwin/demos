@@ -1,6 +1,8 @@
 /**!
  * Demos - route/web_route.js
  *
+ * 子路由，用来渲染web页面的路由
+ *
  * Authors:
  *  Berwin <liubowen.niubi@gmail.com>
  */

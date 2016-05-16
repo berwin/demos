@@ -1,6 +1,8 @@
 /**!
  * Demos - app.js
  *
+ * 项目入口文件
+ *
  * Authors:
  *  Berwin <liubowen.niubi@gmail.com>
  */

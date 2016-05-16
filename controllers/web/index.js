@@ -1,6 +1,8 @@
 /**!
  * Demos - controller/web/index.js
  *
+ * 用来渲染web页面的 controller
+ *
  * Authors:
  *  Berwin <liubowen.niubi@gmail.com>
  */
