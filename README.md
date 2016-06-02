@@ -5,20 +5,23 @@ Demos 是一个风格简洁的代码编辑器，用来写demo，小案例等。
 Demos 基于 Koa 与 MongoDB 开发
 
 
-## Install
+## Clone codes and run
 
-```
-git clone demos.git
-```
+```bash
+# clone from git
+$ git clone git@github.com:berwin/demos.git
 
-## Run
+$ cd demos
 
-```
-cp config/default.js config/index.js
-```
+# install dependencies
+$ npm install
 
-编辑 `config/index.js` 配置文件
+# copy the default configuration file
+$ cp config/default.js config/index.js
 
-```
+# modify configuration file
+$ vim config/index.js
+
+# run
 node app.js
 ```
