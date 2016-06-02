@@ -19,9 +19,10 @@ var config = {
   hostname: 'http://www.demos.so',
   stat: {
     url: 'http://stat.berwin.me/api/v1/content',
-    groupID: '55ab38d919a9a46b48bef001',
-    sourceID: '558a2ef3459c3d595db03329',
-    token: '558a2ef3459c3d595db03328'
+    sourceID: '57500e23f8e333b51993ad86',
+    token: '57500e23f8e333b51993ad85',
+    codeErrGroupID: '57500e68f8e333b51993ad88',
+    uvGroupID: '57500e55f8e333b51993ad87'
   }
 };
 

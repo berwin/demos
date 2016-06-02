@@ -10,22 +10,32 @@
 var base = require('./base.js');
 var db = base.getCollection('code');
 
-exports.insertCode = function (data, callback) {
-  db.insert(data, callback);
+exports.insertCode = function (data) {
+  return function (done) {
+    db.insert(data, done);
+  }
 };
 
-exports.updateCode = function (id, data, callback) {
-  db.findAndModify({_id: id}, [], {$set: data}, {upsert: true, new: true}, callback);
+exports.updateCode = function (id, data) {
+  return function (done) {
+    db.findAndModify({_id: id}, [], {$set: data}, {upsert: true, new: true}, done);
+  }
 };
 
-exports.getCodeById = function (id, callback) {
-  db.findOne({_id: id}, callback);
+exports.getCodeById = function (id) {
+  return function (done) {
+    db.findOne({_id: id}, done);
+  }
 };
 
-exports.getDemosByUserID = function (userID, callback) {
-  db.find({userID : userID}).toArray(callback);
+exports.getCodesByUserID = function (userID) {
+  return function (done) {
+    db.find({userID : userID}).toArray(done);
+  }
 };
 
-exports.rmCodeById = function (id, callback) {
-  db.remove({_id: id}, callback);
+exports.rmCodeById = function (id) {
+  return function (done) {
+    db.remove({_id: id}, done);
+  }
 };

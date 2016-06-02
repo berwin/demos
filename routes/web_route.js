@@ -11,7 +11,13 @@
 
 var router = require('koa-router')();
 var webCtrl = require('../controllers/web/index.js');
+var set_session = require('../middleware/set_session.js');
 
-router.get('/', webCtrl.index);
+router.get('/', webCtrl.home);
+router.get('/html', webCtrl.redirectHtml);
+router.get('/js', webCtrl.redirectJs);
+router.get('/html/:id', set_session, webCtrl.edit);
+router.get('/js/:id', set_session, webCtrl.editJS);
+router.get('/result/:id', webCtrl.result);
 
 module.exports = router;

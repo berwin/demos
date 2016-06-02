@@ -62,29 +62,6 @@ exports.ran = function (n, m) {
 };
 
 /*
- * 统计代码报错
- * 执行该函数，将想 stat.berwin.me 系统发送一条请求通知demos报错了。
- */
-exports.statError = function () {
-  // 统计访问量
-  var options = {
-    url: config.stat.url,
-    json: true,
-    method: 'POST',
-    timeout: 30000,
-    body: {
-      groupID : config.stat.groupID,
-      sourceID : config.stat.sourceID,
-      token: config.stat.token,
-      data : {
-        value: 'error'
-      }
-    }
-  };
-  request(options, function (e, r, body) {});
-};
-
-/*
  * 生成随机字符串
  * 
  * @param {Number} 字符串长度
