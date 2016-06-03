@@ -14,7 +14,10 @@ var forums = new Router();
 var webRoute = require('./web_route.js');
 var apiRoute = require('./api_route.js');
 
+// View route
 forums.use(webRoute.routes());
+
+// Api route
 forums.use('/api', apiRoute.routes());
 
 module.exports = forums;
