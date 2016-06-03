@@ -8,45 +8,52 @@ define(function (require, exports, module) {
     var menu = {
 
         getList : function () {
-            return $.post( '/getDemosByUserID', {id : id} );
+            return $.get( '/api/code');
         },
 
         getUserInfo : function () {
-            return $.post( '/getUserInfo', {id : id} );
+            return $.get( '/api/user');
         },
 
         login : function (mail, password) {
-            return $.post( '/login', {id : id, mail : mail, password: password} );
+            return $.post( '/api/login', {id : id, mail : mail, password: password} );
         },
 
         register : function (mail, password) {
-            return $.post( '/register', {id : id, mail : mail, password : password} );
+            return $.post( '/api/user', {id : id, mail : mail, password : password} );
         },
 
         retrieve : function (mail) {
-            return $.post( '/retrieve', { id : id, mail : mail } );
+            return $.post( '/api/retrieve', { id : id, mail : mail } );
         },
 
         changepw : function (newPw) {
-            return $.post( '/changepw', { id: id, password: newPw } );
+            return $.ajax({
+                url: '/api/user',
+                type: 'PUT',
+                data: { id: id, password: newPw }
+            });
         },
 
         signout : function () {
-            return $.post( '/signout', {id: id} );
+            return $.get( '/api/signout', {id: id} );
         },
 
         rmCode : function (data) {
-            return $.post( '/rmCode/' + data.historyID, {id: data.id} );
+            return $.ajax({
+                url: '/api/code/' + data.historyID,
+                type: 'DELETE'
+            });
         }
     };
 
     var edit = {
         getCodeInfo : function (type) {
-            return $.get( '/getCodeInfo/'+ id +'/' + type );
+            return $.get( '/api/code/'+ id +'/' + type );
         },
 
         save : function (codeText, type) {
-            return $.post( '/createCode', { id : id, codeText : codeText, type: type } );
+            return $.post( '/api/code', { id : id, code : codeText, type: type } );
         }
     };
 

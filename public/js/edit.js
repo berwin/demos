@@ -19,7 +19,7 @@ define(function (require, exports, module) {
         }else{
             requester.edit.getCodeInfo( strType ).success(function( codeInfo ){
                 tool.setCookie( 'userID_' + id, codeInfo.userID );
-                editor.setValue( codeInfo.codeText );
+                editor.setValue( codeInfo.code );
             });
         }
     };

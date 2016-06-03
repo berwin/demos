@@ -10,18 +10,32 @@
 var base = require('./base.js');
 var db = base.getCollection('user');
 
-exports.insert = function (data, callback) {
-  db.insert(data, callback);
+exports.insert = function (data) {
+  return function (done) {
+    db.insert(data, done);
+  }
 };
 
-exports.getUserByMail = function (mail, callback) {
-  db.findOne({mail: mail}, callback);
+exports.getUserByMail = function (mail) {
+  return function (done) {
+    db.findOne({mail: mail}, done);
+  }
 };
 
-exports.updateUserByMail = function (mail, data, callback) {
-  db.findAndModify({mail: mail}, [], {$set: data}, {new: true}, callback);
+exports.updateUserByMail = function (mail, data) {
+  return function (done) {
+    db.findAndModify({mail: mail}, [], {$set: data}, {new: true}, done);
+  }
 };
 
-exports.getUserById = function (id, callback) {
-  db.findOne({_id: id}, callback);
+exports.updateUserById = function (id, data) {
+  return function (done) {
+    db.findAndModify({_id: id}, [], {$set: data}, {new: true}, done);
+  }
+};
+
+exports.getUserById = function (id) {
+  return function (done) {
+    db.findOne({_id: id}, done);
+  }
 };

@@ -33,7 +33,7 @@ exports.getMd5 = function (str) {
  * @param {String} 邮件内容
  * @param {Function} 回调函数
  */
-exports.sendMail = function (mail, title, html, callback) {
+exports.sendMail = function (mail, title, html) {
   var transporter = nodemailer.createTransport({
     service: 'qq',
     auth: {
@@ -47,7 +47,10 @@ exports.sendMail = function (mail, title, html, callback) {
     subject: title,
     html: html
   };
-  transporter.sendMail(mailOptions, callback);
+
+  return function (done) {
+    transporter.sendMail(mailOptions, done);
+  }
 };
 
 /*

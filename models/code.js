@@ -16,7 +16,7 @@ exports.insertCode = function (data) {
   }
 };
 
-exports.updateCode = function (id, data) {
+exports.updateCodeById = function (id, data) {
   return function (done) {
     db.findAndModify({_id: id}, [], {$set: data}, {upsert: true, new: true}, done);
   }
@@ -28,7 +28,7 @@ exports.getCodeById = function (id) {
   }
 };
 
-exports.getCodesByUserID = function (userID) {
+exports.getCodesByUserId = function (userID) {
   return function (done) {
     db.find({userID : userID}).toArray(done);
   }

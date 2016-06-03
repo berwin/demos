@@ -34,8 +34,18 @@ module.exports = {
    * @param {String} userID
    * @return {Array} code 列表
    */
-  getCodesByUserID: function *(userID) {
-    return yield codeModel.getCodesByUserID(id);
+  getCodesByUserId: function *(userID) {
+    return yield codeModel.getCodesByUserId(userID);
+  },
+
+  /*
+   * 修改 code
+   *
+   * @param {String} codeID
+   * @return {Object} 更新后的数据
+   */
+  updateCodeById: function *(id, data) {
+    return yield codeModel.updateCodeById(id, data);
   },
 
   /*

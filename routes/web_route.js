@@ -19,5 +19,6 @@ router.get('/js', webCtrl.redirectJs);
 router.get('/html/:id', set_session, webCtrl.edit);
 router.get('/js/:id', set_session, webCtrl.editJS);
 router.get('/result/:id', webCtrl.result);
+router.get('/activate/:mail/:md5', webCtrl.activate);
 
 module.exports = router;
