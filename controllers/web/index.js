@@ -30,11 +30,11 @@ exports.redirectJs = function *() {
 };
 
 exports.edit = function *() {
-  yield this.render('edit-html', {data :{_id: this.params.id}});
+  yield this.render('html/index', {data :{_id: this.params.id}});
 };
 
 exports.editJS = function *() {
-  yield this.render('edit-js', {data: {_id: this.params.id}});
+  yield this.render('js/index', {data: {_id: this.params.id}});
 };
 
 exports.result = function *() {
@@ -49,7 +49,7 @@ exports.activate = function *() {
 
   if (passMd5 === newPassMd5) {
     var result = yield *userService.active(mail);
-    yield this.render('activate', {mail: mail});
+    yield this.render('other/activate', {mail: mail});
   } else {
     this.status = 404;
     this.body = 'Incorrect parameters';

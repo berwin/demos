@@ -1,4 +1,4 @@
-<% include header %>
+<% include ../common/header %>
     <div id="code"></div>
     <div id="scroll"><span></span></div>
     <div id="repl"></div>
@@ -10,12 +10,9 @@
         <div id="cls" title="Ctrl+K">清屏</div>
         <!-- <div id="browse"><a href="/<%- data._id %>/result" target="_blank">文件地址</a></div> -->
     </div>
-    <% include menu %>
-<% include footer %>
+    <% include ../common/menu %>
+<% include ../common/footer %>
 <script src="/lib/jqconsole.min.js"></script>
-
-<script>
-    seajs.use(['/js/edit_js/edit-js', '/js/menu/menu.js']);
-</script>
+<script src="/dist/bundle.js.js"></script>
 </body>
 </html>

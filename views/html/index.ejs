@@ -1,4 +1,4 @@
-<% include header %>
+<% include ../common/header %>
     <div id="code"></div>
     <div id="statusBar">
         <p>本产品由 Berwin 独立开发</p>
@@ -7,10 +7,8 @@
         <div id="btn_preview" title="ctrl+alt+p">实时预览</div>
         <div id="browse"><a href="/<%- data._id %>/result" target="_blank">浏览</a></div>
     </div>
-    <% include menu %>
-<% include footer %>
-<script>
-    seajs.use(['/js/edit_html/edit-html.js', '/js/menu/menu.js']);
-</script>
+    <% include ../common/menu %>
+<% include ../common/footer %>
+<script src="/dist/bundle.html.js"></script>
 </body>
 </html>
