@@ -1,23 +1,43 @@
-'use strict';
-var express = require( 'express' );
-var app = express();
-var logger = require('morgan');
-var router = require('./lib/router');
-var config = require( './config' );
-var path = require( 'path' );
-var bodyParser = require('body-parser');
-var favicon = require('static-favicon');
-var cookieParser = require('cookie-parser');
+/**!
+ * Demos - app.js
+ *
+ * 项目入口文件
+ *
+ * Authors:
+ *  Berwin <liubowen.niubi@gmail.com>
+ */
 
-app.set( 'views', path.join( __dirname, 'views' ) );
-app.set( 'view engine', 'ejs' );
+var app = require('koa')();
+var path = require('path');
+var logger = require('koa-logger');
+var serve = require('koa-static');
+var bodyParser = require('koa-bodyparser');
+var render = require('koa-ejs');
+var route = require('./routes/index.js');
+var config = require('./config/index.js');
 
-app.use( favicon( __dirname + '/public/images/favicon.ico' ) );
-app.use( logger( 'dev' ) );
-app.use( bodyParser.json() );
-app.use( bodyParser.urlencoded() );
-app.use( cookieParser() );
-app.use( express.static( path.join( __dirname, 'public' ), { maxAge: 86400000 } ) );
-app.use( '/', router );
+// 注册中间件
+app.use(logger());
+app.use(serve(path.join(__dirname, 'public')));
+app.use(bodyParser());
 
-app.listen( config.LISTEN );
+render(app, {
+  root: path.join(__dirname, 'views'),
+  layout: false,
+  viewExt: 'ejs',
+  cache: false,
+  debug: true
+});
+
+app.use(route.routes());
+
+if (!module.parent) {
+  var server = app.listen(config.port, function () {
+    console.info(`Demos listening on port ${config.port}`);
+    console.info(`God bless love....`);
+    console.info(`You can debug your app with http://127.0.0.1:${config.port}`);
+    console.info('');
+  });
+}
+
+module.exports = app;

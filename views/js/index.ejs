@@ -1,0 +1,18 @@
+<% include ../common/header %>
+    <div id="code"></div>
+    <div id="scroll"><span></span></div>
+    <div id="repl"></div>
+    <div id="statusBar">
+        <p>本产品由 Berwin 独立开发</p>
+        <div id="btn_menu" title="Ctrl+M">菜单</div>
+        <div id="save" title="Ctrl+S">保存</div>
+        <div id="run" title="Ctrl+Enter">运行</div>
+        <div id="cls" title="Ctrl+K">清屏</div>
+        <!-- <div id="browse"><a href="/<%- data._id %>/result" target="_blank">文件地址</a></div> -->
+    </div>
+    <% include ../common/menu %>
+<% include ../common/footer %>
+<script src="/lib/jqconsole.min.js"></script>
+<script src="/dist/bundle.js.js"></script>
+</body>
+</html>
