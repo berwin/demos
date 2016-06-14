@@ -7,9 +7,9 @@
 
 'use strict';
 
-var userService = require(process.env.PWD + '/services/user/index.js');
-var helper = require(process.env.PWD + '/helper/index.js');
-var config = require(process.env.PWD + '/config/index.js');
+var userService = require('../../services/user/index.js');
+var helper = require('../../helper/index.js');
+var config = require('../../config/index.js');
 
 exports.login = function *() {
   var mail = this.request.body.mail;

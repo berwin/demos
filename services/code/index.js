@@ -9,7 +9,7 @@
 
 'use strict';
 
-var codeModel = require(process.env.PWD + '/models/code.js');
+var codeModel = require('../../models/code.js');
 var insertCode = require('./insert_code.js');
 
 module.exports = {

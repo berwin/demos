@@ -9,8 +9,8 @@
 
 'use strict';
 
-var codeModel = require(process.env.PWD + '/models/code.js');
-var ObjectID = require(process.env.PWD + '/models/base.js').ObjectID;
+var codeModel = require('../../models/code.js');
+var ObjectID = require('../../models/base.js').ObjectID;
 
 /*
  * 保存代码

@@ -7,7 +7,7 @@
 
 'use strict';
 
-var codeService = require(process.env.PWD + '/services/code/index.js');
+var codeService = require('../../services/code/index.js');
 
 exports.codeInfo = function *() {
   var id = this.params.id;
