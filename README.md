@@ -25,3 +25,16 @@ $ vim config/index.js
 # run
 node app.js
 ```
+
+## deploy
+
+```bash
+# Start
+pm2 start process.json
+
+# Reload
+pm2 reload process.json
+
+# Delete
+pm2 delete process.json
+```
