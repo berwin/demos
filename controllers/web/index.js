@@ -9,11 +9,11 @@
 
 'use strict';
 
-var codeService = require(process.env.PWD + '/services/code/index.js');
-var userService = require(process.env.PWD + '/services/user/index.js');
-var ObjectID = require(process.env.PWD + '/models/base.js').ObjectID;
-var helper = require(process.env.PWD + '/helper/index.js');
-var config = require(process.env.PWD + '/config/index.js');
+var codeService = require('../../services/code/index.js');
+var userService = require('../../services/user/index.js');
+var ObjectID = require('../../models/base.js').ObjectID;
+var helper = require('../../helper/index.js');
+var config = require('../../config/index.js');
 
 exports.home = function *() {
   yield this.render('index');

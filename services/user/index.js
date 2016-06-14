@@ -9,7 +9,7 @@
 
 'use strict';
 
-var userModel = require(process.env.PWD + '/models/user.js');
+var userModel = require('../../models/user.js');
 
 /*
  * 激活账号
