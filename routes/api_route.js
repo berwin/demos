@@ -23,7 +23,7 @@ router.post('*', auth);
 router
   .get('/code', codeCtrl.getCodesByUserId)
   .get('/code/:id/:type', codeCtrl.codeInfo)
-  .post('/code', codeCtrl.createCode)
+  .post('/code', codeCtrl.saveCode)
   .delete('/code/:id', codeCtrl.deleteCode);
 
 /*

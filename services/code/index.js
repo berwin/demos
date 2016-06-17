@@ -53,7 +53,13 @@ module.exports = {
    *
    * @param {String} codeID
    */
-  rmCodeById: function *(id) {
-    return yield codeModel.rmCodeById(id);
+  rmCodeById: function *(id, userID) {
+    var codeInfo = yield codeModel.getCodeById(id);
+    
+    if (codeInfo.userID === userID) {
+      return yield codeModel.rmCodeById(id);
+    } else {
+      throw new Error('The user doesn`t have permission to delete the code');
+    }
   }
 };
