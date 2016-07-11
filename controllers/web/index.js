@@ -39,7 +39,7 @@ exports.editJS = function *() {
 
 exports.result = function *() {
   var result = yield *codeService.getCodeById(this.params.id);
-  this.body = result ? result.codeText : '404';
+  this.body = result ? result.code : '404';
 };
 
 exports.activate = function *() {
