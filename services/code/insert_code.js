@@ -33,11 +33,15 @@ module.exports = function *(data) {
   var codeInfo = yield codeModel.getCodeById(data.id);
   var time = new Date().getTime();
 
+  // 截取第一个注释中filename之后的字符串为文件名
+  var alias = String(data.code).match(/\*\s+filename:\s+(.*)/im)[1];
+  if(alias) alias = alias.trim();
+
   /*
    * 创建代码
    */
   if (codeInfo === null) {
-    var result = yield codeModel.insertCode({_id: data.id, code: data.code, type: data.type, userID: data.userID, firstTime: time, lastTime: time});
+    var result = yield codeModel.insertCode({_id: data.id, alias: alias, code: data.code, type: data.type, userID: data.userID, firstTime: time, lastTime: time});
     return {status: 0, data: result.ops[0]};
   }
 
@@ -45,15 +49,17 @@ module.exports = function *(data) {
    * 修改代码
    */
   if (codeInfo.userID === data.userID) {
-    var result = yield codeModel.updateCodeById(data.id, {code: data.code, lastTime: time});
-    return {status: 1, data: result.value};
+    var result = yield codeModel.updateCodeById(data.id, {code: data.code, lastTime: time, alias: alias});
+    var ret = {status: 1, data: result.value};
+    if(codeInfo.alias !== alias) ret.nrm = true; // nrm: need reload menu
+    return ret;
   }
 
   /*
    * 另存为新代码（表示A创建的code之后，把地址发给了B，B对code进行修改点击保存的时候，不允许修改A的代码，而是另存了一份）
    */
   if (codeInfo.userID !== data.userID) {
-    var result = yield codeModel.insertCode({_id: ObjectID().toString(), code: data.code, type: data.type, userID: data.userID, firstTime: time, lastTime: time});
+    var result = yield codeModel.insertCode({_id: ObjectID().toString(), alias: alias, code: data.code, type: data.type, userID: data.userID, firstTime: time, lastTime: time});
     return {status: 2, data: result.ops[0]};
   }
 };

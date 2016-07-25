@@ -109,7 +109,7 @@ exports.sendCode = function (codeText, type) {
     /*if (result.status === 0 || result.status === 1) {
       toastr.success( '保存成功' );
     }*/
-    if (result.status === 0 || result.status === 2){
+    if (result.status === 0 || result.status === 2 || result.nrm){
       menu.clearHistory();
     }
     if (result.status === 2) {

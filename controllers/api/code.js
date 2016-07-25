@@ -27,8 +27,10 @@ exports.codeInfo = function *() {
   } else {
     var userID = this.cookies.get('demos_session');
     var str = '<!doctype html>\n<html>\n<head>\n    <meta charset="UTF-8">\n    <title>Demos</title>\n</head>\n<body>\n    \n</body>\n</html>';
+    var jsHeaderStr = '/**\n * filename: ' + id + '\n */\n';
     var obj = {code : '', userID: userID, type: type};
     if (type === 'html') obj.code = str;
+    else if(type === 'js') obj.code = jsHeaderStr;
     this.body = obj;
   }
 };
