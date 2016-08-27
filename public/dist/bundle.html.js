@@ -110,7 +110,7 @@ exports.sendCode = function (codeText, type) {
     /*if (result.status === 0 || result.status === 1) {
       toastr.success( '保存成功' );
     }*/
-    if (result.status === 0 || result.status === 2){
+    if (result.status === 0 || result.status === 2 || result.nrm){
       menu.clearHistory();
     }
     if (result.status === 2) {
@@ -413,7 +413,7 @@ function appendChildDemos(list) {
 
   for (var i = 0; i < list.length; i++) {
     var classActive = (list[i]._id === id ? 'on' : '');
-    var str = '<li><div class="del_history none"><img src="/images/close.png" /></div><a href="/'+ list[i].type +'/'+ list[i]._id +'" class="'+ classActive +'">'+ list[i]._id +'.'+ list[i].type +'</a></li>';
+    var str = '<li><div class="del_history none"><img src="/images/close.png" /></div><a href="/'+ list[i].type +'/'+ list[i]._id +'" class="'+ classActive +'">'+ (list[i].alias || list[i]._id) +'.'+ list[i].type +'</a></li>';
     $(ul).append(str);
   }
 
