@@ -33,9 +33,11 @@ module.exports = function *(data) {
   var codeInfo = yield codeModel.getCodeById(data.id);
   var time = new Date().getTime();
 
-  // 截取第一个注释中filename之后的字符串为文件名
-  var alias = String(data.code).match(/\*\s+filename:\s+(.*)/im)[1];
-  if(alias) alias = alias.trim();
+  if (data.type === 'js') {
+    // 截取第一个注释中filename之后的字符串为文件名
+    var alias = String(data.code).match(/\*\s+filename:\s+(.*)/im)[1];
+    if (alias) alias = alias.trim();
+  }
 
   /*
    * 创建代码
@@ -51,7 +53,7 @@ module.exports = function *(data) {
   if (codeInfo.userID === data.userID) {
     var result = yield codeModel.updateCodeById(data.id, {code: data.code, lastTime: time, alias: alias});
     var ret = {status: 1, data: result.value};
-    if(codeInfo.alias !== alias) ret.nrm = true; // nrm: need reload menu
+    if (codeInfo.alias !== alias) ret.nrm = true; // nrm: need reload menu
     return ret;
   }
 

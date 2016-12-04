@@ -29,9 +29,9 @@ var menu = {
   signout: function () {
     return $.get('/api/signout', {id: id});
   },
-  rmCode: function (data) {
+  rmCode: function (id) {
     return $.ajax({
-      url: '/api/code/' + data.historyID,
+      url: '/api/code/' + id,
       type: 'DELETE'
     });
   }

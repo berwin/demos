@@ -37,7 +37,7 @@ module.exports = function *(next) {
 
   // 为了配合前端，单独设置一个前端可以访问的cookie，让前端访问userID
   if (!this.cookies.get('userID')) {
-    this.cookies.set('userID', userID, {expires: new Date(Date.now() + 86400000*30)});
+    this.cookies.set('userID', userID, {expires: new Date(Date.now() + 86400000*30), httpOnly: false});
   }
 
   // 统计访问量

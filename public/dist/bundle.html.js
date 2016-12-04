@@ -287,9 +287,9 @@ var menu = {
   signout: function () {
     return $.get('/api/signout', {id: id});
   },
-  rmCode: function (data) {
+  rmCode: function (id) {
     return $.ajax({
-      url: '/api/code/' + data.historyID,
+      url: '/api/code/' + id,
       type: 'DELETE'
     });
   }
@@ -413,7 +413,7 @@ function appendChildDemos(list) {
 
   for (var i = 0; i < list.length; i++) {
     var classActive = (list[i]._id === id ? 'on' : '');
-    var str = '<li><div class="del_history none"><img src="/images/close.png" /></div><a href="/'+ list[i].type +'/'+ list[i]._id +'" class="'+ classActive +'">'+ (list[i].alias || list[i]._id) +'.'+ list[i].type +'</a></li>';
+    var str = '<li><div class="del_history none"><img src="/images/close.png" /></div><a href="/'+ list[i].type +'/'+ list[i]._id +'" class="'+ classActive +'" _id="'+ list[i]._id +'">'+ (list[i].alias || list[i]._id) +'.'+ list[i].type +'</a></li>';
     $(ul).append(str);
   }
 
@@ -720,16 +720,9 @@ function deleteMouseout() {
 function deleteClick() {
   NProgress.start();
 
-  var str = $(this).parent().find('a').text();
-  var historyID = str.substring(0, str.lastIndexOf('.'));
-  var id = utils.getID();
+  var id = $(this).parent().find('a').attr('_id');
 
-  var data = {
-    id : id,
-    historyID : historyID
-  };
-
-  requester.menu.rmCode(data).success(function () {
+  requester.menu.rmCode(id).success(function () {
     clearHistory();
     NProgress.done();
   }).error(function () {
